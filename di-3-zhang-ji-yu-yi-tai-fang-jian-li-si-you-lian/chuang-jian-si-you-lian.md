@@ -121,5 +121,33 @@ data
 
 **注意：**由于使用--datadir自定义数据目录，后续geth命令使用时都需要加上该参数。默认数据目录为$HOME/Library/Ethereum。
 
+# 创建账户
 
+geth account命令用于管理账户，支持许多子命令：
+
+> * geth account list 		打印所有账户
+> * geth account new 		创建新账户
+> * geth account update 		更新账户信息
+> * geth account import 		导入私钥生成新的账户
+> * geth account help 		打印帮助
+
+初始化私有链后没有任何账户：
+
+```
+# geth --datadir $HOME/share/q-btc/data account list
+WARN [xx-xx|22:27:19] No etherbase set and no accounts found as default
+```
+
+生成一个包含明文密码的文件，并创建一个账户：
+
+```
+# cd $HOME/share/q-btc
+# echo 123 > account.pwd
+# geth --datadir $HOME/share/q-btc/data --password account.pwd account new
+Address: { 205c6e56f2b809d686b4afc42b241004c985c900 }
+# geth --datadir $HOME/share/q-btc/data account list
+Account #0: {205c6e56f2b809d686b4afc42b241004c985c900} keystore://$HOME/share/q-btc/data/keystore/UTC--2017-xx-xxT14-50-17.692945588Z--205c6e56f2b809d686b4afc42b241004c985c900
+```
+
+此时生成了一个新账户，账户地址为**{ 205c6e56f2b809d686b4afc42b241004c985c900 }**。
 
