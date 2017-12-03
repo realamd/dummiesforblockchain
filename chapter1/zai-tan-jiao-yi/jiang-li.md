@@ -20,5 +20,5 @@ func (cli *CLI) send(from, to string, amount int) {
 }
 ```
 
-
+我们的实现中，交易创建者进行挖矿，挖到一个新block时，就会收到一个奖励。
 
