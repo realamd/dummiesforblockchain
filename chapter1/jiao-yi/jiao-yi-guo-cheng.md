@@ -14,12 +14,29 @@ type Block struct {
 
 ```go
 func NewBlock(transactions []*Transaction, prevBlockHash []byte) *Block {
-	block := &Block{time.Now().Unix(), transactions, prevBlockHash, []byte{}, 0}
-	...
+    block := &Block{time.Now().Unix(), transactions, prevBlockHash, []byte{}, 0}
+    ...
 }
 
 func NewGenesisBlock(coinbase *Transaction) *Block {
-	return NewBlock([]*Transaction{coinbase}, []byte{})
+    return NewBlock([]*Transaction{coinbase}, []byte{})
+}
+```
+
+**CreateBlockchain**也需要修改：
+
+```go
+func CreateBlockchain(address string) *Blockchain {
+	...
+	err = db.Update(func(tx *bolt.Tx) error {
+		cbtx := NewCoinbaseTX(address, genesisCoinbaseData)
+		genesis := NewGenesisBlock(cbtx)
+
+		b, err := tx.CreateBucket([]byte(blocksBucket))
+		err = b.Put(genesis.Hash, genesis.Serialize())
+		...
+	})
+	...
 }
 ```
 
