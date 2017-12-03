@@ -82,8 +82,34 @@ bc := Blockchain{tip, db}
 
 ```go
 type Blockchain struct {
-	tip []byte
-	db  *bolt.DB
+    tip []byte
+    db  *bolt.DB
+}
+```
+
+接下来，修改**AddBlock**方法：新增一个block会变得复杂一些：
+
+```go
+func (bc *Blockchain) AddBlock(data string) {
+	var lastHash []byte
+
+	err := bc.db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(blocksBucket))
+		lastHash = b.Get([]byte("l"))
+
+		return nil
+	})
+
+	newBlock := NewBlock(data, lastHash)
+
+	err = bc.db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(blocksBucket))
+		err := b.Put(newBlock.Hash, newBlock.Serialize())
+		err = b.Put([]byte("l"), newBlock.Hash)
+		bc.tip = newBlock.Hash
+
+		return nil
+	})
 }
 ```
 
