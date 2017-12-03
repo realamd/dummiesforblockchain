@@ -91,26 +91,37 @@ type Blockchain struct {
 
 ```go
 func (bc *Blockchain) AddBlock(data string) {
-	var lastHash []byte
+    var lastHash []byte
 
-	err := bc.db.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(blocksBucket))
-		lastHash = b.Get([]byte("l"))
+    err := bc.db.View(func(tx *bolt.Tx) error {
+        b := tx.Bucket([]byte(blocksBucket))
+        lastHash = b.Get([]byte("l"))
 
-		return nil
-	})
+        return nil
+    })
 
-	newBlock := NewBlock(data, lastHash)
+    newBlock := NewBlock(data, lastHash)
 
-	err = bc.db.Update(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(blocksBucket))
-		err := b.Put(newBlock.Hash, newBlock.Serialize())
-		err = b.Put([]byte("l"), newBlock.Hash)
-		bc.tip = newBlock.Hash
+    err = bc.db.Update(func(tx *bolt.Tx) error {
+        b := tx.Bucket([]byte(blocksBucket))
+        err := b.Put(newBlock.Hash, newBlock.Serialize())
+        err = b.Put([]byte("l"), newBlock.Hash)
+        bc.tip = newBlock.Hash
 
-		return nil
-	})
+        return nil
+    })
 }
+```
+
+我们来一段一段来看：
+
+```go
+err := bc.db.View(func(tx *bolt.Tx) error {
+	b := tx.Bucket([]byte(blocksBucket))
+	lastHash = b.Get([]byte("l"))
+
+	return nil
+})
 ```
 
 
