@@ -15,29 +15,35 @@
 
 ```go
 func NewBlockchain() *Blockchain {
-	var tip []byte
-	db, err := bolt.Open(dbFile, 0600, nil)
+    var tip []byte
+    db, err := bolt.Open(dbFile, 0600, nil)
 
-	err = db.Update(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(blocksBucket))
+    err = db.Update(func(tx *bolt.Tx) error {
+        b := tx.Bucket([]byte(blocksBucket))
 
-		if b == nil {
-			genesis := NewGenesisBlock()
-			b, err := tx.CreateBucket([]byte(blocksBucket))
-			err = b.Put(genesis.Hash, genesis.Serialize())
-			err = b.Put([]byte("l"), genesis.Hash)
-			tip = genesis.Hash
-		} else {
-			tip = b.Get([]byte("l"))
-		}
+        if b == nil {
+            genesis := NewGenesisBlock()
+            b, err := tx.CreateBucket([]byte(blocksBucket))
+            err = b.Put(genesis.Hash, genesis.Serialize())
+            err = b.Put([]byte("l"), genesis.Hash)
+            tip = genesis.Hash
+        } else {
+            tip = b.Get([]byte("l"))
+        }
 
-		return nil
-	})
+        return nil
+    })
 
-	bc := Blockchain{tip, db}
+    bc := Blockchain{tip, db}
 
-	return &bc
+    return &bc
 }
+```
+
+让我们一段一段来看实现。
+
+```
+db, err := bolt.Open(dbFile, 0600, nil)
 ```
 
 
