@@ -61,12 +61,28 @@ addBlockData := addBlockCmd.String("data", "", "Block data")
 ```go
 switch os.Args[1] {
 case "addblock":
-	err := addBlockCmd.Parse(os.Args[2:])
+    err := addBlockCmd.Parse(os.Args[2:])
 case "printchain":
-	err := printChainCmd.Parse(os.Args[2:])
+    err := printChainCmd.Parse(os.Args[2:])
 default:
-	cli.printUsage()
-	os.Exit(1)
+    cli.printUsage()
+    os.Exit(1)
+}
+```
+
+接下来，我们检查用户输入的命令以及与之相关的命令参数：
+
+```go
+f addBlockCmd.Parsed() {
+	if *addBlockData == "" {
+		addBlockCmd.Usage()
+		os.Exit(1)
+	}
+	cli.addBlock(*addBlockData)
+}
+
+if printChainCmd.Parsed() {
+	cli.printChain()
 }
 ```
 
