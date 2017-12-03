@@ -39,6 +39,7 @@
     * [总结](chapter1/jiao-yi/zong-jie.md)
   * [地址](chapter1/di-zhi.md)
     * [引言](chapter1/di-zhi/yin-yan.md)
+    * [比特币地址](chapter1/di-zhi/bi-te-bi-di-zhi.md)
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
 * 基于以太坊建立私有链
