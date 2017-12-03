@@ -162,5 +162,7 @@ func handleVersion(request []byte, bc *Blockchain) {
 }
 ```
 
+首先，对请求中的数据进行解码获取消息体，这对所有消息处理函数都是一样的，后续介绍其他消息处理函数时将不再进行介绍。
 
+随后，接收节点将自身的**BestHeight**与消息体（即发送节点）中的**BestHeight**进行比较。若接收节点的blockchain更长，将发送**version**消息；若发送节点的blockchain更长，将发送**getblocks**消息。
 
