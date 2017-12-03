@@ -139,5 +139,44 @@ func (tx *Transaction) Verify(prevTXs map[string]Transaction) bool {
 }
 ```
 
+首先，生成TrimmedCopy交易：
+
+```go
+txCopy := tx.TrimmedCopy()
+```
+
+接下来，创建椭圆曲线用于生成键值对：
+
+```go
+curve := elliptic.P256()
+```
+
+对于每个TXI的签名进行验证：
+
+```go
+for inID, vin := range tx.Vin {
+	prevTx := prevTXs[hex.EncodeToString(vin.Txid)]
+	txCopy.Vin[inID].Signature = nil
+	txCopy.Vin[inID].PubKey = prevTx.Vout[vin.Vout].PubKeyHash
+	txCopy.ID = txCopy.Hash()
+	txCopy.Vin[inID].PubKey = nil
+```
+
+这个过程和**Sign**方法是一致的，因为验证的数据需要和签名的数据是一致的。
+
+```
+	r := big.Int{}
+	s := big.Int{}
+	sigLen := len(vin.Signature)
+	r.SetBytes(vin.Signature[:(sigLen / 2)])
+	s.SetBytes(vin.Signature[(sigLen / 2):])
+
+	x := big.Int{}
+	y := big.Int{}
+	keyLen := len(vin.PubKey)
+	x.SetBytes(vin.PubKey[:(keyLen / 2)])
+	y.SetBytes(vin.PubKey[(keyLen / 2):])
+```
+
 
 
