@@ -30,6 +30,7 @@
     * [There is no spoon](chapter1/jiao-yi/there-is-no-spoon.md)
     * [比特币交易](chapter1/jiao-yi/bi-te-bi-jiao-yi.md)
     * [交易输出\(TXO\)](chapter1/jiao-yi/jiao-yi-shu-51fa28-txo.md)
+    * [交易输入\(TXI\)](chapter1/jiao-yi/jiao-yi-shu-516528-txi.md)
   * 地址
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
