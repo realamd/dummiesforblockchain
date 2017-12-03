@@ -73,5 +73,53 @@ Genesis文件示例如下：
 # vi PrivateGenesis.json
 ```
 
+# 初始化节点
+
+使用上面创建的Genesis文件初始化节点：
+
+```
+# cd $HOME/share/q-btc/data
+# geth init PrivateGenesis.json --datadir $HOME/share/q-btc/data
+WARN [xx-xx|13:26:56] No etherbase set and no accounts found as default
+INFO [xx-xx|13:26:56] Allocated cache and file handles         database=$HOME/share/q-btc/data/geth/chaindata cache=16 handles=16
+INFO [xx-xx|13:26:56] Writing custom genesis block
+INFO [xx-xx|13:26:56] Successfully wrote genesis state         database=chaindata hash=611596…424d04
+INFO [xx-xx|13:26:56] Allocated cache and file handles         database=$HOME/share/q-btc/data/geth/lightchaindata cache=16 handles=16
+INFO [xx-xx|13:26:56] Writing custom genesis block
+INFO [xx-xx|13:26:56] Successfully wrote genesis state         database=lightchaindata                                      hash=611596…424d04
+```
+
+初始化后，在$HOME/share/q-btc/data生成一系列目录及文件：
+
+```
+data
+├── geth
+│   ├── LOCK
+│   ├── chaindata
+│   │   ├── 000002.ldb
+│   │   ├── 000003.log
+│   │   ├── CURRENT
+│   │   ├── LOCK
+│   │   ├── LOG
+│   │   └── MANIFEST-000004
+│   ├── lightchaindata
+│   │   ├── 000001.log
+│   │   ├── CURRENT
+│   │   ├── LOCK
+│   │   ├── LOG
+│   │   └── MANIFEST-000000
+│   ├── nodekey
+│   ├── nodes
+│   │   ├── 000001.log
+│   │   ├── CURRENT
+│   │   ├── LOCK
+│   │   ├── LOG
+│   │   └── MANIFEST-000000
+│   └── transactions.rlp
+└── keystore
+```
+
+**注意：**由于使用--datadir自定义数据目录，后续geth命令使用时都需要加上该参数。默认数据目录为$HOME/Library/Ethereum。
+
 
 
