@@ -61,5 +61,6 @@
 * [第3章 基于以太坊建立私有链](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian.md)
 * [第4章 DApps](di-4-zhang-dapps.md)
 * [第5章 智能合约](di-5-zhang-zhi-neng-he-yue.md)
-* 附录
+* [附录](fu-lu.md)
+  * [公钥与私钥](fu-lu/gong-yao-yu-si-yao.md)
 
