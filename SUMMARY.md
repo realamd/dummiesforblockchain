@@ -20,6 +20,7 @@
     * [数据库选型](chapter1/chi-jiu-hua-he-cli/shu-ju-ku-xuan-xing.md)
     * [BoltDB](chapter1/chi-jiu-hua-he-cli/boltdb.md)
     * [数据库结构](chapter1/chi-jiu-hua-he-cli/shu-ju-ku-jie-gou.md)
+    * [序列化](chapter1/chi-jiu-hua-he-cli/xu-lie-hua.md)
   * 地址
   * 交易
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
