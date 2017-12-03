@@ -14,7 +14,7 @@ $ cp blockchain_3000.db blockchain_genesis.db
 
 **在NODE 3001节点上**
 
-打开一个新终端，将node ID设置为3001，该节点为钱包节点。使用**createwallet**命令创建3个钱包地址：**WALLET\_1**, **WALLET\_2**, **WALLET\_3。**
+打开一个新终端，将node ID设置为3001，该节点为钱包节点。使用**createwallet**命令创建3个钱包地址：**WALLET\_1**, **WALLET\_2**, **WALLET\_3。**
 
 **在NODE 3000节点上**
 
@@ -121,6 +121,8 @@ Balance of 'WALLET_4': 1
 $ blockchain_go getbalance -address MINER_WALLET
 Balance of 'MINER_WALLET': 10
 ```
+
+一切如预期！
 
 
 
