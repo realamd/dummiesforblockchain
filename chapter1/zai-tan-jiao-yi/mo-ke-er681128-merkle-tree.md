@@ -77,5 +77,24 @@ func NewMerkleTree(data [][]byte) *MerkleTree {
 }
 ```
 
+创建一个默克尔树之前，需要确保有偶数个叶子节点，然后将数据转换为叶子节点，最后生成整个默克尔树。
+
+> _**译者注：**上述实现存在一个问题：当叶子节点的数量是2n时，可以正常创建树（for j := 0; j &lt; len\(nodes\); j += 2…该段代码体现）；如果是不是2n时，创建树会发生异常！_
+
+修改**Block.HashTransactions**方法，用于获取在PoW过程获取交易hash值。
+
+```go
+func (b *Block) HashTransactions() []byte {
+    var transactions [][]byte
+
+    for _, tx := range b.Transactions {
+        transactions = append(transactions, tx.Serialize())
+    }
+    mTree := NewMerkleTree(transactions)
+
+    return mTree.RootNode.Data
+}
+```
+
 
 
