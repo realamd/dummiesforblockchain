@@ -67,3 +67,11 @@ func StartServer(nodeID, minerAddress string) {
 
 首先，将中心节点地址硬编码到程序中：一开始每个节点必须要知道该地址。**minerAddress**参数表示接收挖矿奖励的地址。
 
+```go
+if nodeAddress != knownNodes[0] {
+    sendVersion(knownNodes[0], bc)
+}
+```
+
+
+
