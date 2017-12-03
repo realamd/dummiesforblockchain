@@ -10,6 +10,7 @@
     * [总结](chapter1/ji-ben-yuan-xing/zong-jie.md)
   * [工作量证明](chapter1/gong-zuo-liang-zheng-ming.md)
     * [引言](chapter1/gong-zuo-liang-zheng-ming/yin-yan.md)
+    * [PoW](chapter1/gong-zuo-liang-zheng-ming/pow.md)
   * 持久化和CLI
   * 地址
   * 交易
