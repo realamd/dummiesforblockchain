@@ -27,18 +27,18 @@ func NewGenesisBlock(coinbase *Transaction) *Block {
 
 ```go
 func CreateBlockchain(address string) *Blockchain {
-	...
-	err = db.Update(func(tx *bolt.Tx) error {
-		cbtx := NewCoinbaseTX(address, genesisCoinbaseData)
-		genesis := NewGenesisBlock(cbtx)
+    ...
+    err = db.Update(func(tx *bolt.Tx) error {
+        cbtx := NewCoinbaseTX(address, genesisCoinbaseData)
+        genesis := NewGenesisBlock(cbtx)
 
-		b, err := tx.CreateBucket([]byte(blocksBucket))
-		err = b.Put(genesis.Hash, genesis.Serialize())
-		...
-	})
-	...
+        b, err := tx.CreateBucket([]byte(blocksBucket))
+        err = b.Put(genesis.Hash, genesis.Serialize())
+        ...
+    })
+    ...
 }
 ```
 
-
+CreateBlockchain接受一个地址，该地址会挖到genesis block因此将获取奖励。
 
