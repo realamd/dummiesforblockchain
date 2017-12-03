@@ -75,32 +75,76 @@ func checksum(payload []byte) []byte {
 
 ```go
 type TXInput struct {
-	Txid      []byte
-	Vout      int
-	Signature []byte
-	PubKey    []byte
+    Txid      []byte
+    Vout      int
+    Signature []byte
+    PubKey    []byte
 }
 
 func (in *TXInput) UsesKey(pubKeyHash []byte) bool {
-	lockingHash := HashPubKey(in.PubKey)
+    lockingHash := HashPubKey(in.PubKey)
 
-	return bytes.Compare(lockingHash, pubKeyHash) == 0
+    return bytes.Compare(lockingHash, pubKeyHash) == 0
 }
 
 type TXOutput struct {
-	Value      int
-	PubKeyHash []byte
+    Value      int
+    PubKeyHash []byte
 }
 
 func (out *TXOutput) Lock(address []byte) {
-	pubKeyHash := Base58Decode(address)
-	pubKeyHash = pubKeyHash[1 : len(pubKeyHash)-4]
-	out.PubKeyHash = pubKeyHash
+    pubKeyHash := Base58Decode(address)
+    pubKeyHash = pubKeyHash[1 : len(pubKeyHash)-4]
+    out.PubKeyHash = pubKeyHash
 }
 
 func (out *TXOutput) IsLockedWithKey(pubKeyHash []byte) bool {
-	return bytes.Compare(out.PubKeyHash, pubKeyHash) == 0
+    return bytes.Compare(out.PubKeyHash, pubKeyHash) == 0
 }
+```
+
+由于我们不打算实现一个脚本语言，因此不再使用**ScriptPubKey**和**ScriptSig。ScriptSig**被**Signature**和**PubKey**代替；**ScriptPubKey**被**PubKeyHash**代替。通过下面的方法中实现比特币中TXO的加解锁和TXI的签名逻辑：
+
+**UsesKey**方法核查TXI是否可以使用特定的未哈希的公钥来解锁一个TXO。**IsLockedWithKey**核查TXO是否被特定的哈希后的公钥锁定。**UsesKey**和**IsLockedWithKey**是互补函数，**FindUnspentTransactions**函数使用这两个函数来构建交易间的关系。
+
+**Lock**方法是对TXO进行加锁。当发给某人货币时，仅仅知道他们的地址，因此该方法唯一入参就是地址信息。从地址中从解码出哈希后的公钥，将其保存到**PubKeyHash**中。
+
+现在，让我们看看是否能正常工作：
+
+```
+$ blockchain_go createwallet
+Your new address: 13Uu7B1vDP4ViXqHFsWtbraM3EfQ3UkWXt
+
+$ blockchain_go createwallet
+Your new address: 15pUhCbtrGh3JUx5iHnXjfpyHyTgawvG5h
+
+$ blockchain_go createwallet
+Your new address: 1Lhqun1E9zZZhodiTqxfPQBcwr1CVDV2sy
+
+$ blockchain_go createblockchain -address 13Uu7B1vDP4ViXqHFsWtbraM3EfQ3UkWXt
+0000005420fbfdafa00c093f56e033903ba43599fa7cd9df40458e373eee724d
+
+Done!
+
+$ blockchain_go getbalance -address 13Uu7B1vDP4ViXqHFsWtbraM3EfQ3UkWXt
+Balance of '13Uu7B1vDP4ViXqHFsWtbraM3EfQ3UkWXt': 10
+
+$ blockchain_go send -from 15pUhCbtrGh3JUx5iHnXjfpyHyTgawvG5h -to 13Uu7B1vDP4ViXqHFsWtbraM3EfQ3UkWXt -amount 5
+2017/09/12 13:08:56 ERROR: Not enough funds
+
+$ blockchain_go send -from 13Uu7B1vDP4ViXqHFsWtbraM3EfQ3UkWXt -to 15pUhCbtrGh3JUx5iHnXjfpyHyTgawvG5h -amount 6
+00000019afa909094193f64ca06e9039849709f5948fbac56cae7b1b8f0ff162
+
+Success!
+
+$ blockchain_go getbalance -address 13Uu7B1vDP4ViXqHFsWtbraM3EfQ3UkWXt
+Balance of '13Uu7B1vDP4ViXqHFsWtbraM3EfQ3UkWXt': 4
+
+$ blockchain_go getbalance -address 15pUhCbtrGh3JUx5iHnXjfpyHyTgawvG5h
+Balance of '15pUhCbtrGh3JUx5iHnXjfpyHyTgawvG5h': 6
+
+$ blockchain_go getbalance -address 1Lhqun1E9zZZhodiTqxfPQBcwr1CVDV2sy
+Balance of '1Lhqun1E9zZZhodiTqxfPQBcwr1CVDV2sy': 0
 ```
 
 
