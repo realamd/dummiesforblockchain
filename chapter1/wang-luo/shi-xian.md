@@ -228,5 +228,39 @@ func handleInv(request []byte, bc *Blockchain) {
 }
 ```
 
+为了跟踪已下载block信息，当block的hash值完成传输后，将被保存到**blocksInTransit**中，这样做可以使我们从不同的节点下载block。一旦block置为transit状态后，将向inv消息的发送节点发送**getdata**消息并更新**blocksInTransit**。在真实的P2P网络中，将从不同的节点传输block信息。
+
+在我们的实现中，inv消息中仅有一个block或交易的hash值，这也就是当**payload.Type == "tx"**时仅仅获取第一个hash值的原因。当mempool没有找到对应block或交易时，将发送**getdata**消息获取相关信息。
+
+# **消息**
+
+```go
+type getdata struct {
+    AddrFrom string
+    Type     string
+    ID       []byte
+}
+```
+
+**getdata**消息用于获取某个block或交易信息
+
+```go
+func handleGetData(request []byte, bc *Blockchain) {
+    ...
+    if payload.Type == "block" {
+        block, err := bc.GetBlock([]byte(payload.ID))
+
+        sendBlock(payload.AddrFrom, &block)
+    }
+
+    if payload.Type == "tx" {
+        txID := hex.EncodeToString(payload.ID)
+        tx := mempool[txID]
+
+        sendTx(payload.AddrFrom, &tx)
+    }
+}
+```
+
 
 
