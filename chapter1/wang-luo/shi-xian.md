@@ -372,5 +372,25 @@ func handleTx(request []byte, bc *Blockchain) {
 }
 ```
 
+首先，将新交易放入mempool（放入前应该进行有效性验证）。
 
+```go
+if nodeAddress == knownNodes[0] {
+    for _, node := range knownNodes {
+        if node != nodeAddress && node != payload.AddFrom {
+            sendInv(node, "tx", [][]byte{tx.ID})
+        }
+    }
+}
+```
+
+检查当前节点是否为中心节点，在我们的视线中由于中心节点不进行挖矿操作，因此若是中心节点则将新交易转发给网络中的其他节点。
+
+若当前节点为矿工节点，将进行如下操作。让我们一步一步来看：
+
+```go
+if len(mempool) >= 2 && len(miningAddress) > 0 {
+```
+
+仅仅矿工节点设置 **miningAddress**，若当前矿工节点的mempool包含两个以上的交易时，开始挖矿：
 
