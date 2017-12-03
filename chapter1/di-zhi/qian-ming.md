@@ -242,14 +242,75 @@ func (bc *Blockchain) VerifyTransaction(tx *Transaction) bool {
 
 ```go
 func NewUTXOTransaction(from, to string, amount int, bc *Blockchain) *Transaction {
-	...
+    ...
 
+    tx := Transaction{nil, inputs, outputs}
+    tx.ID = tx.Hash()
+    bc.SignTransaction(&tx, wallet.PrivateKey)
+
+    return &tx
+}
+```
+
+在交易加入到block前进行交易验证：
+
+```go
+func (bc *Blockchain) MineBlock(transactions []*Transaction) {
+	var lastHash []byte
+
+	for _, tx := range transactions {
+		if bc.VerifyTransaction(tx) != true {
+			log.Panic("ERROR: Invalid transaction")
+		}
+	}
+	...
+}
+```
+
+现在执行看看效果：
+
+```
+$ blockchain_go createwallet
+Your new address: 1AmVdDvvQ977oVCpUqz7zAPUEiXKrX5avR
+
+$ blockchain_go createwallet
+Your new address: 1NE86r4Esjf53EL7fR86CsfTZpNN42Sfab
+
+$ blockchain_go createblockchain -address 1AmVdDvvQ977oVCpUqz7zAPUEiXKrX5avR
+000000122348da06c19e5c513710340f4c307d884385da948a205655c6a9d008
+
+Done!
+
+$ blockchain_go send -from 1AmVdDvvQ977oVCpUqz7zAPUEiXKrX5avR -to 1NE86r4Esjf53EL7fR86CsfTZpNN42Sfab -amount 6
+0000000f3dbb0ab6d56c4e4b9f7479afe8d5a5dad4d2a8823345a1a16cf3347b
+
+Success!
+
+$ blockchain_go getbalance -address 1AmVdDvvQ977oVCpUqz7zAPUEiXKrX5avR
+Balance of '1AmVdDvvQ977oVCpUqz7zAPUEiXKrX5avR': 4
+
+$ blockchain_go getbalance -address 1NE86r4Esjf53EL7fR86CsfTZpNN42Sfab
+Balance of '1NE86r4Esjf53EL7fR86CsfTZpNN42Sfab': 6
+```
+
+一切OK！
+
+把 **NewUTXOTransaction**中的以下语句注释，这样未被签名的交易不会被叫入到blockchain中。
+
+> **bc.SignTransaction\(&tx, wallet.PrivateKey\)**
+
+```go
+func NewUTXOTransaction(from, to string, amount int, bc *Blockchain) *Transaction {
+   ...
 	tx := Transaction{nil, inputs, outputs}
 	tx.ID = tx.Hash()
-	bc.SignTransaction(&tx, wallet.PrivateKey)
+	// bc.SignTransaction(&tx, wallet.PrivateKey)
 
 	return &tx
 }
+$ go install
+$ blockchain_go send -from 1AmVdDvvQ977oVCpUqz7zAPUEiXKrX5avR -to 1NE86r4Esjf53EL7fR86CsfTZpNN42Sfab -amount 1
+2017/09/12 16:28:15 ERROR: Invalid transaction
 ```
 
 
