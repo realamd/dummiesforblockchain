@@ -2,10 +2,19 @@ TXO结构如下：
 
 ```go
 type TXOutput struct {
-	Value        int
-	ScriptPubKey string
+    Value        int
+    ScriptPubKey string
 }
 ```
 
+TXO存储货币信息（TXOutput的Value字段），同时通过一个谜题进行锁定，谜题存放在**ScriptPubKey**字段中。比特币使用一个叫做script的脚本语言进行加锁和解锁操作，script中定义了加锁和解锁逻辑。该语言是非常底层的（这是有意为之，主要是为了避免黑客攻击或者误用）。对于该语言本身不进行过多讨论，详细可以参考[BItcoinScript](https://en.bitcoin.it/wiki/Script)。
 
+> _“比特币中，value字段存储的是satoshis数量，而不是BTC的数量。一个satoshis表示0.00000001 BTC，是最小的货币单位（如同一分钱）。”_
+
+由于尚未实现地址（钱包）概念，因此暂时不涉及脚本相关的逻辑，**ScriptPubKey**仅仅存储用户定义的字符串，而非钱包信息。
+
+> _正因为由此脚本语言，比特币可以用作智能合约平台_
+
+  
+值得注意的是：一个TXO作为一个整体使用，是**不可分割的**，不能只使用该TXO的一部分。如果该TXO的交易额大于所需，则发生“找零”，这同现实世界是一样的：用5块钱购买价值1块钱的商品，获得商品的同时还会获得4元找零；而不是把5块钱撕开成1/5和4/5，只是用4/5，这是不允许的。
 
