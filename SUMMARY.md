@@ -11,6 +11,8 @@
   * [工作量证明](chapter1/gong-zuo-liang-zheng-ming.md)
     * [引言](chapter1/gong-zuo-liang-zheng-ming/yin-yan.md)
     * [PoW](chapter1/gong-zuo-liang-zheng-ming/pow.md)
+    * [哈希](chapter1/gong-zuo-liang-zheng-ming/ha-xi.md)
+    * [Hashcash算法](chapter1/gong-zuo-liang-zheng-ming/hashcashsuan-fa.md)
   * 持久化和CLI
   * 地址
   * 交易
