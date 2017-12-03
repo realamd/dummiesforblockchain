@@ -232,7 +232,7 @@ func handleInv(request []byte, bc *Blockchain) {
 
 在我们的实现中，inv消息中仅有一个block或交易的hash值，这也就是当**payload.Type == "tx"**时仅仅获取第一个hash值的原因。当mempool没有找到对应block或交易时，将发送**getdata**消息获取相关信息。
 
-# **消息**
+# getdata**消息**
 
 ```go
 type getdata struct {
@@ -263,6 +263,4 @@ func handleGetData(request []byte, bc *Blockchain) {
 ```
 
 该消息处理函数根据消息中的数据类型，返回block或者交易。需要注意的是，该函数没有检查对应的block或交易是否存在。
-
-
 
