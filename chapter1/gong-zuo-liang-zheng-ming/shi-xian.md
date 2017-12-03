@@ -48,18 +48,18 @@ prepareData方法将block各个字段和nonce（counter值）作为输入，计�
 
 ```go
 func (pow *ProofOfWork) prepareData(nonce int) []byte {
-	data := bytes.Join(
-		[][]byte{
-			pow.block.PrevBlockHash,
-			pow.block.Data,
-			IntToHex(pow.block.Timestamp),
-			IntToHex(int64(targetBits)),
-			IntToHex(int64(nonce)),
-		},
-		[]byte{},
-	)
+    data := bytes.Join(
+        [][]byte{
+            pow.block.PrevBlockHash,
+            pow.block.Data,
+            IntToHex(pow.block.Timestamp),
+            IntToHex(int64(targetBits)),
+            IntToHex(int64(nonce)),
+        },
+        []byte{},
+    )
 
-	return data
+    return data
 }
 ```
 
@@ -67,28 +67,30 @@ func (pow *ProofOfWork) prepareData(nonce int) []byte {
 
 ```go
 func (pow *ProofOfWork) Run() (int, []byte) {
-	var hashInt big.Int
-	var hash [32]byte
-	nonce := 0
+    var hashInt big.Int
+    var hash [32]byte
+    nonce := 0
 
-	fmt.Printf("Mining the block containing \"%s\"\n", pow.block.Data)
-	for nonce < maxNonce {
-		data := pow.prepareData(nonce)
-		hash = sha256.Sum256(data)
-		fmt.Printf("\r%x", hash)
-		hashInt.SetBytes(hash[:])
+    fmt.Printf("Mining the block containing \"%s\"\n", pow.block.Data)
+    for nonce < maxNonce {
+        data := pow.prepareData(nonce)
+        hash = sha256.Sum256(data)
+        fmt.Printf("\r%x", hash)
+        hashInt.SetBytes(hash[:])
 
-		if hashInt.Cmp(pow.target) == -1 {
-			break
-		} else {
-			nonce++
-		}
-	}
-	fmt.Print("\n\n")
+        if hashInt.Cmp(pow.target) == -1 {
+            break
+        } else {
+            nonce++
+        }
+    }
+    fmt.Print("\n\n")
 
-	return nonce, hash[:]
+    return nonce, hash[:]
 }
 ```
 
+最初，初始化变量：**hashInt**是hash值得整数形式；**nonce**是一个递增计数器，初始化为0。接下来，开始进行循环计算， **nonce**和**maxNonce（**设置为math.MaxInt64）进行比较，直到找到符合要求的hash值为止。
 
+循环中进行如下操作：
 
