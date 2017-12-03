@@ -9,6 +9,7 @@
     * [区块链（Blockchain）](chapter1/ji-ben-yuan-xing/qu-kuai-lian-ff08-blockchain.md)
     * [总结](chapter1/ji-ben-yuan-xing/zong-jie.md)
   * [工作量证明](chapter1/gong-zuo-liang-zheng-ming.md)
+    * [引言](chapter1/gong-zuo-liang-zheng-ming/yin-yan.md)
   * 持久化和CLI
   * 地址
   * 交易
