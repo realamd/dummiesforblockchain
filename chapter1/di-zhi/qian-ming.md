@@ -181,13 +181,59 @@ for inID, vin := range tx.Vin {
 这里，。之前，将签名生成的两个字节序列组合生成TXI的**Signature**；将椭圆曲线的X,Y坐标点集合（其实也是两个字节序列）组合生成TXI的**PubKey。**现在，我们需要将TXI的**Signature**和**PubKey**中的数据进行“拆包”，用于**crypto/ecdsa**库进行验证使用。
 
 ```go
-	rawPubKey := ecdsa.PublicKey{curve, &x, &y}
-	if ecdsa.Verify(&rawPubKey, txCopy.ID, &r, &s) == false {
-		return false
-	}
+    rawPubKey := ecdsa.PublicKey{curve, &x, &y}
+    if ecdsa.Verify(&rawPubKey, txCopy.ID, &r, &s) == false {
+        return false
+    }
 }
 
 return true
+```
+
+现在，需要一个根据交易ID获取交易的函数，由于需要访问blockchain，因此作为blockchain的一个方法实现：
+
+```go
+func (bc *Blockchain) FindTransaction(ID []byte) (Transaction, error) {
+	bci := bc.Iterator()
+
+	for {
+		block := bci.Next()
+
+		for _, tx := range block.Transactions {
+			if bytes.Compare(tx.ID, ID) == 0 {
+				return *tx, nil
+			}
+		}
+
+		if len(block.PrevBlockHash) == 0 {
+			break
+		}
+	}
+
+	return Transaction{}, errors.New("Transaction is not found")
+}
+
+func (bc *Blockchain) SignTransaction(tx *Transaction, privKey ecdsa.PrivateKey) {
+	prevTXs := make(map[string]Transaction)
+
+	for _, vin := range tx.Vin {
+		prevTX, err := bc.FindTransaction(vin.Txid)
+		prevTXs[hex.EncodeToString(prevTX.ID)] = prevTX
+	}
+
+	tx.Sign(privKey, prevTXs)
+}
+
+func (bc *Blockchain) VerifyTransaction(tx *Transaction) bool {
+	prevTXs := make(map[string]Transaction)
+
+	for _, vin := range tx.Vin {
+		prevTX, err := bc.FindTransaction(vin.Txid)
+		prevTXs[hex.EncodeToString(prevTX.ID)] = prevTX
+	}
+
+	return tx.Verify(prevTXs)
+}
 ```
 
 
