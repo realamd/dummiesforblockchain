@@ -154,15 +154,16 @@ INFO [xx-xx|00:50:19] Imported new chain segment               blocks=1  txs=0 m
 INFO [xx-xx|00:50:19] Imported new chain segment               blocks=1  txs=0 mgas=0.000 elapsed=3.908ms   mgasps=0.000 number=15 hash=d6d0f4…d51980
 ```
 
-5.2    跨机器间节点互联
+# 跨机器间节点互联
 
 跨机器间的节点互联和同一台机器内的节点互联一样，区别在于添加节点，例如机器2的IP为192.168.1.2，节点标识为enode://999fc3a6cec378232668fddd07479e5607d4e1dd0b50d7ddb7f06c89003e8dc44e2b930db18d0daeccdaec3fdddb3ea1dace2ca022b516834d957c635187d399@\[::\]:30303?discport=0，机器1添加节点调用如下：
 
-&gt; admin.addPeer\("enode://01dfc3a6cec378232668fddd07479e5607d4e1dd0b50d7ddb7f06c89003e8dc44e2b930db18d0daeccdaec3fdddb3ea1dace2ca022b516834d957c635187d399@192.168.1.2:30303?discport=0"\)
-
+```
+> admin.addPeer("enode://01dfc3a6cec378232668fddd07479e5607d4e1dd0b50d7ddb7f06c89003e8dc44e2b930db18d0daeccdaec3fdddb3ea1dace2ca022b516834d957c635187d399@192.168.1.2:30303?discport=0")
 true
+```
 
 只需要将机器2节点标识中的\[::\]替换为机器2的IP即可。
 
-目前构成了一个2机器3节点的私有链网络：
+目前构成了一个2机器3节点的私有链网络：![](/assets/3.1.20.png)
 
