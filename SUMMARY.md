@@ -46,6 +46,7 @@
     * [Base58编码算法](chapter1/di-zhi/base58bian-ma-suan-fa.md)
     * [地址](chapter1/di-zhi/di-zhi.md)
     * [签名](chapter1/di-zhi/qian-ming.md)
+    * [总结](chapter1/di-zhi/zong-jie.md)
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
 * 基于以太坊建立私有链
