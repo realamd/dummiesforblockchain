@@ -86,5 +86,55 @@ func sendVersion(addr string, bc *Blockchain) {
 }
 ```
 
+消息由字节数组构成：前12个字节表示命令名（此时是“version”），紧接着是gob编码的消息体。
+
+```go
+func commandToBytes(command string) []byte {
+    var bytes [commandLength]byte
+
+    for i, c := range command {
+        bytes[i] = byte(c)
+    }
+
+    return bytes[:]
+}
+```
+
+**commandToBytes**函数创建长度为12的字节数组，然后将命令名填充到其中。
+
+```go
+func bytesToCommand(bytes []byte) string {
+    var command []byte
+
+    for _, b := range bytes {
+        if b != 0x0 {
+            command = append(command, b)
+        }
+    }
+
+    return fmt.Sprintf("%s", command)
+}
+```
+
+**bytesToCommand**与**commandToBytes**作用正好相反：当一个节点接收到一个命令时，通过**bytesToCommand**函数从中解析出命令名和消息体。**handleConnection**函数会根据解析出的命令名来调用不同的消息处理函数。
+
+```go
+func handleConnection(conn net.Conn, bc *Blockchain) {
+    request, err := ioutil.ReadAll(conn)
+    command := bytesToCommand(request[:commandLength])
+    fmt.Printf("Received %s command\n", command)
+
+    switch command {
+    ...
+    case "version":
+        handleVersion(request, bc)
+    default:
+        fmt.Println("Unknown command!")
+    }
+
+    conn.Close()
+}
+```
+
 
 
