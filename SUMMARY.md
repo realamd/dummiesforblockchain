@@ -41,6 +41,8 @@
     * [引言](chapter1/di-zhi/yin-yan.md)
     * [比特币地址](chapter1/di-zhi/bi-te-bi-di-zhi.md)
     * [公钥加密](chapter1/di-zhi/gong-yao-jia-mi.md)
+    * [数字签名](chapter1/di-zhi/shu-zi-qian-ming.md)
+    * [椭圆曲线加密算法](chapter1/di-zhi/tuo-yuan-qu-xian-jia-mi-suan-fa.md)
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
 * 基于以太坊建立私有链
