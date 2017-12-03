@@ -252,13 +252,13 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 
 打印的信息主要包含私有链的配置信息，如缓存存放目录、数据存放目录、DAG存放目录、IPC地址等。随后进入Geth JavaScript控制台（&gt;为控制台提示符），该控制台可执行JavaScript代码，同时内置的许多以太坊对象：
 
-> * eth			用于操作区块链
-> * net			用于查看p2p网络状态
-> * admin		用于管理节点
-> * miner		用于启动&停止挖矿
-> * personal	用于管理账户
-> * txpool		用于查看交易内存池
-> * web3		上述对象的父对象，此外包括一些单位换算对象
+> * eth            用于操作区块链
+> * net            用于查看p2p网络状态
+> * admin        用于管理节点
+> * miner        用于启动&停止挖矿
+> * personal    用于管理账户
+> * txpool        用于查看交易内存池
+> * web3        上述对象的父对象，此外包括一些单位换算对象
 
 # 挖矿
 
@@ -302,6 +302,17 @@ true
 ```
 > eth.accounts
 ["0x205c6e56f2b809d686b4afc42b241004c985c900"]
+```
+
+查看该用户/矿工的余额，eth.getBalance返回值是以太币最小单位（Wei，Ether = 1018Wei）的数量，可以使用web3.fromWei转换成实际的以太币数量：
+
+```
+> eth.getBalance(eth.accounts[0])
+1.59e+21
+> primary = eth.accounts[0]
+"0x205c6e56f2b809d686b4afc42b241004c985c900"
+> balance = web3.fromWei(eth.getBalance(primary), "ether")
+1590
 ```
 
 
