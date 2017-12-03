@@ -120,12 +120,56 @@ func (cli *CLI) printChain() {
 
 ```go
 func main() {
-	bc := NewBlockchain()
-	defer bc.db.Close()
+    bc := NewBlockchain()
+    defer bc.db.Close()
 
-	cli := CLI{bc}
-	cli.Run()
+    cli := CLI{bc}
+    cli.Run()
 }
+```
+
+需要注意的是无论是否有命令行参数，程序一运行就会创建一个blockchain。
+
+一切OK，尝试运行下吧：
+
+```
+$ blockchain_go printchain
+No existing blockchain found. Creating a new one...
+Mining the block containing "Genesis Block"
+000000edc4a82659cebf087adee1ea353bd57fcd59927662cd5ff1c4f618109b
+
+Prev. hash:
+Data: Genesis Block
+Hash: 000000edc4a82659cebf087adee1ea353bd57fcd59927662cd5ff1c4f618109b
+PoW: true
+
+$ blockchain_go addblock -data "Send 1 BTC to Ivan"
+Mining the block containing "Send 1 BTC to Ivan"
+000000d7b0c76e1001cdc1fc866b95a481d23f3027d86901eaeb77ae6d002b13
+
+Success!
+
+$ blockchain_go addblock -data "Pay 0.31337 BTC for a coffee"
+Mining the block containing "Pay 0.31337 BTC for a coffee"
+000000aa0748da7367dec6b9de5027f4fae0963df89ff39d8f20fd7299307148
+
+Success!
+
+$ blockchain_go printchain
+Prev. hash: 000000d7b0c76e1001cdc1fc866b95a481d23f3027d86901eaeb77ae6d002b13
+Data: Pay 0.31337 BTC for a coffee
+Hash: 000000aa0748da7367dec6b9de5027f4fae0963df89ff39d8f20fd7299307148
+PoW: true
+
+Prev. hash: 000000edc4a82659cebf087adee1ea353bd57fcd59927662cd5ff1c4f618109b
+Data: Send 1 BTC to Ivan
+Hash: 000000d7b0c76e1001cdc1fc866b95a481d23f3027d86901eaeb77ae6d002b13
+PoW: true
+
+Prev. hash:
+Data: Genesis Block
+Hash: 000000edc4a82659cebf087adee1ea353bd57fcd59927662cd5ff1c4f618109b
+PoW: true
 ```
 
 
