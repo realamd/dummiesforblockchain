@@ -101,5 +101,24 @@ if tx.IsCoinbase() == false {
 }
 ```
 
+最终，该函数返回包含UTXO的交易列表。通过接下来的函数，进一步处理，最终返回TXO列表。
+
+```go
+func (bc *Blockchain) FindUTXO(address string) []TXOutput {
+       var UTXOs []TXOutput
+       unspentTransactions := bc.FindUnspentTransactions(address)
+
+       for _, tx := range unspentTransactions {
+               for _, out := range tx.Vout {
+                       if out.CanBeUnlockedWith(address) {
+                               UTXOs = append(UTXOs, out)
+                       }
+               }
+       }
+
+       return UTXOs
+}
+```
+
 
 
