@@ -266,7 +266,17 @@ func handleGetData(request []byte, bc *Blockchain) {
 
 # **block和tx消息**
 
+```go
+type block struct {
+    AddrFrom string
+    Block    []byte
+}
 
+type tx struct {
+    AddFrom     string
+    Transaction []byte
+}
+```
 
 
 
