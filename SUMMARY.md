@@ -17,6 +17,7 @@
     * [总结](chapter1/gong-zuo-liang-zheng-ming/zong-jie.md)
   * [持久化和CLI](chapter1/chi-jiu-hua-he-cli.md)
     * [引言](chapter1/chi-jiu-hua-he-cli/yin-yan.md)
+    * [数据库选型](chapter1/chi-jiu-hua-he-cli/shu-ju-ku-xuan-xing.md)
   * 地址
   * 交易
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
