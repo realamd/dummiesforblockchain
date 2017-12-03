@@ -118,5 +118,33 @@ func (u UTXOSet) FindSpendableOutputs(pubkeyHash []byte, amount int) (int, map[s
 }
 ```
 
+获取余额过程也可以用到UTXO集合：
+
+```go
+func (u UTXOSet) FindUTXO(pubKeyHash []byte) []TXOutput {
+    var UTXOs []TXOutput
+    db := u.Blockchain.db
+
+    err := db.View(func(tx *bolt.Tx) error {
+        b := tx.Bucket([]byte(utxoBucket))
+        c := b.Cursor()
+
+        for k, v := c.First(); k != nil; k, v = c.Next() {
+            outs := DeserializeOutputs(v)
+
+            for _, out := range outs.Outputs {
+                if out.IsLockedWithKey(pubKeyHash) {
+                    UTXOs = append(UTXOs, out)
+                }
+            }
+        }
+
+        return nil
+    })
+
+    return UTXOs
+}
+```
+
 
 
