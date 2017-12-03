@@ -175,14 +175,14 @@ func (pow *ProofOfWork) Validate() bool {
 
 ```
 func main() {
-	...
+    ...
 
-	for _, block := range bc.blocks {
-		...
-		pow := NewProofOfWork(block)
-		fmt.Printf("PoW: %s\n", strconv.FormatBool(pow.Validate()))
-		fmt.Println()
-	}
+    for _, block := range bc.blocks {
+        ...
+        pow := NewProofOfWork(block)
+        fmt.Printf("PoW: %s\n", strconv.FormatBool(pow.Validate()))
+        fmt.Println()
+    }
 }
 ```
 
