@@ -88,8 +88,17 @@ for inID, vin := range txCopy.Vin {
 对于每个TXI，为了确保万无一失，再次将**Signature**字段设置为nil，同时将**PubKey**设置为其所引用的TXO的**PubKeyHash**。此时，除了当前被处理的交易外，其他所有交易都是“空”交易（**Signature**和**PubKey**字段为nil）。由于比特币允许交易包含来自于不同地址的TXI，因此需要**单独地对每个TXI进行签名**，虽然对于我们的应用来说没必要这么做（在我们的应用中，一个交易包中的TXI均来自同一地址）。
 
 ```go
-	txCopy.ID = txCopy.Hash()
-	txCopy.Vin[inID].PubKey = nil
+    txCopy.ID = txCopy.Hash()
+    txCopy.Vin[inID].PubKey = nil
+```
+
+**Hash**方法将交易序列化并通过SHA-256进行哈希。生成的哈希结果就是待签名的数据。此后，我们将**PubKey**字段重新设置为nil避免影响后续的迭代。下面是核心部分：
+
+```go
+	r, s, err := ecdsa.Sign(rand.Reader, &privKey, txCopy.ID)
+	signature := append(r.Bytes(), s.Bytes()...)
+
+	tx.Vin[inID].Signature = signature
 ```
 
 
