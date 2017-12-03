@@ -262,5 +262,7 @@ func handleGetData(request []byte, bc *Blockchain) {
 }
 ```
 
+该消息处理函数根据消息中的数据类型，返回block或者交易。需要注意的是，该函数没有检查对应的block或交易是否存在。
+
 
 
