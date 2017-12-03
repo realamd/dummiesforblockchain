@@ -68,5 +68,25 @@ func (bc *Blockchain) FindUnspentTransactions(address string) []Transaction {
 }
 ```
 
+交易存储在block中，我们需要遍历blockchain中的每一个block：
+
+```go
+if out.CanBeUnlockedWith(address) {
+	unspentTXs = append(unspentTXs, tx)
+}
+```
+
+如果TXO是被指定地址锁定的，该TXO会作为候选TXO继续进行处理：
+
+```go
+if spentTXOs[txID] != nil {
+	for _, spentOut := range spentTXOs[txID] {
+		if spentOut == outIdx {
+			continue Outputs
+		}
+	}
+}
+```
+
 
 
