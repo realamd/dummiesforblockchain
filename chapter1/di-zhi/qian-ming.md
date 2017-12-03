@@ -16,24 +16,34 @@
 
 ```go
 func (tx *Transaction) Sign(privKey ecdsa.PrivateKey, prevTXs map[string]Transaction) {
-	if tx.IsCoinbase() {
-		return
-	}
+    if tx.IsCoinbase() {
+        return
+    }
 
-	txCopy := tx.TrimmedCopy()
+    txCopy := tx.TrimmedCopy()
 
-	for inID, vin := range txCopy.Vin {
-		prevTx := prevTXs[hex.EncodeToString(vin.Txid)]
-		txCopy.Vin[inID].Signature = nil
-		txCopy.Vin[inID].PubKey = prevTx.Vout[vin.Vout].PubKeyHash
-		txCopy.ID = txCopy.Hash()
-		txCopy.Vin[inID].PubKey = nil
+    for inID, vin := range txCopy.Vin {
+        prevTx := prevTXs[hex.EncodeToString(vin.Txid)]
+        txCopy.Vin[inID].Signature = nil
+        txCopy.Vin[inID].PubKey = prevTx.Vout[vin.Vout].PubKeyHash
+        txCopy.ID = txCopy.Hash()
+        txCopy.Vin[inID].PubKey = nil
 
-		r, s, err := ecdsa.Sign(rand.Reader, &privKey, txCopy.ID)
-		signature := append(r.Bytes(), s.Bytes()...)
+        r, s, err := ecdsa.Sign(rand.Reader, &privKey, txCopy.ID)
+        signature := append(r.Bytes(), s.Bytes()...)
 
-		tx.Vin[inID].Signature = signature
-	}
+        tx.Vin[inID].Signature = signature
+    }
+}
+```
+
+该方法接受两个参数：私钥以及所引用的之前交易的集合。对交易进行签名时，需要获取该交易所有TXI引用的TXO列表，因此需要存储这些TXO对应的交易。
+
+我们一步一步来看：
+
+```go
+if tx.IsCoinbase() {
+	return
 }
 ```
 
