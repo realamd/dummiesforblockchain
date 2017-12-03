@@ -204,5 +204,15 @@ func (cli *CLI) createBlockchain(address string) {
 }
 ```
 
+当blockchain被创建时，需要创建UTXO集合。现在，这是唯一需要进行**Reindex**的地方。虽然blockchain一开始仅有一个block以及一个交易，这时仅需要执行**Update**没必要进行**Reindex**，但是将来可能需要这个重建机制。
+
+```go
+func (cli *CLI) send(from, to string, amount int) {
+    ...
+    newBlock := bc.MineBlock(txs)
+    UTXOSet.Update(newBlock)
+}
+```
+
 
 
