@@ -196,5 +196,37 @@ type inv struct {
 }
 ```
 
+**inv**消息包含发送节点所拥有的block或交易的hash值列表。**Type**用于表示是block还是交易。该消息处理函数如下：
+
+```go
+func handleInv(request []byte, bc *Blockchain) {
+    ...
+    fmt.Printf("Recevied inventory with %d %s\n", len(payload.Items), payload.Type)
+
+    if payload.Type == "block" {
+        blocksInTransit = payload.Items
+
+        blockHash := payload.Items[0]
+        sendGetData(payload.AddrFrom, "block", blockHash)
+
+        newInTransit := [][]byte{}
+        for _, b := range blocksInTransit {
+            if bytes.Compare(b, blockHash) != 0 {
+                newInTransit = append(newInTransit, b)
+            }
+        }
+        blocksInTransit = newInTransit
+    }
+
+    if payload.Type == "tx" {
+        txID := payload.Items[0]
+
+        if mempool[hex.EncodeToString(txID)].ID == nil {
+            sendGetData(payload.AddrFrom, "tx", txID)
+        }
+    }
+}
+```
+
 
 
