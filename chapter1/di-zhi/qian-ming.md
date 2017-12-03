@@ -95,11 +95,13 @@ for inID, vin := range txCopy.Vin {
 **Hash**方法将交易序列化并通过SHA-256进行哈希。生成的哈希结果就是待签名的数据。此后，我们将**PubKey**字段重新设置为nil避免影响后续的迭代。下面是核心部分：
 
 ```go
-	r, s, err := ecdsa.Sign(rand.Reader, &privKey, txCopy.ID)
-	signature := append(r.Bytes(), s.Bytes()...)
+    r, s, err := ecdsa.Sign(rand.Reader, &privKey, txCopy.ID)
+    signature := append(r.Bytes(), s.Bytes()...)
 
-	tx.Vin[inID].Signature = signature
+    tx.Vin[inID].Signature = signature
 ```
 
+我们使用ECDSA签名算法通过私钥 **privKey**对**txCopy.ID**进行签名，生成一对数字序列。这些数字序列组合后放在**Signature**字段。
 
+下面是校验方法：
 
