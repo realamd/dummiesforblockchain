@@ -94,3 +94,25 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 
 循环中进行如下操作：
 
+> 1. 准备数据
+> 2. 使用SHA-256算法计算hash值
+> 3. 将hash值转换为整数
+> 4. 整型hash值与目标值作比较
+
+接下来，删除**SetHash**方法，并修改**NewBlock**方法：
+
+```go
+func NewBlock(data string, prevBlockHash []byte) *Block {
+	block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}, 0}
+	pow := NewProofOfWork(block)
+	nonce, hash := pow.Run()
+
+	block.Hash = hash[:]
+	block.Nonce = nonce
+
+	return block
+}
+```
+
+
+
