@@ -70,6 +70,7 @@
   * [安装Geth](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/an-zhuang-geth.md)
   * [创建私有链](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/chuang-jian-si-you-lian.md)
   * [钱包应用：Mist](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/qian-bao-ying-yong-ff1a-mist.md)
+  * [多节点互联](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/duo-jie-dian-hu-lian.md)
 * [第4章 DApps](di-4-zhang-dapps.md)
 * [第5章 智能合约](di-5-zhang-zhi-neng-he-yue.md)
 * [附录](fu-lu.md)
