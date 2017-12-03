@@ -48,6 +48,7 @@
     * [签名](chapter1/di-zhi/qian-ming.md)
     * [总结](chapter1/di-zhi/zong-jie.md)
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
+    * [引言](chapter1/zai-tan-jiao-yi/yin-yan.md)
   * 网络
 * 基于以太坊建立私有链
 
