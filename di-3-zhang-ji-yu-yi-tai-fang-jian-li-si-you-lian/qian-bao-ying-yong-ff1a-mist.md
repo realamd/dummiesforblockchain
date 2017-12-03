@@ -76,5 +76,23 @@ UTC--2017-11-26T13-28-26.329917826Z--66e840ec7caf3538c8aaa34d74d882a33fc20ce6
 UTC--2017-11-26T14-17-13.507560584Z--d12b5885d62bb06c76a1699e560c37ac06ee81c4
 ```
 
+# 创建交易
 
+从MAIN ACCOUNT向ACCOUNT3转入一些ether，会创建一个交易：
+
+![](/assets/3.1.9.png)![](/assets/3.1.10.png)![](/assets/3.1.11.png)![](/assets/3.1.12.png)![](/assets/3.1.13.png)输入MAIN ACCOUNT账户密码，SEND TRANSACTION后创建一个交易，可以在MAIN ACCOUNT账户的交易列表中看到：![](/assets/3.1.14.png)点击该交易，可以看到交易信息：![](/assets/3.1.15.png)交易ID为0x8c50622c1648b46c7f94cc9aca8eded3af3231eb611d61bfeaae2e9ffefa702f，此时console会显示日志：
+
+```
+> INFO [xx-xx|22:26:19] Submitted transaction                    fullhash=0x8c50622c1648b46c7f94cc9aca8eded3af3231eb611d61bfeaae2e9ffefa702f recipient=0xD12B5885d62BB06c76A1699E560C37AC06Ee81C4
+```
+
+该交易一直处于灰色，显示“0的12确认区块”，不会有任何变化，而ACCOUNT3的余额一直未0。这是因为目前没有任何节点进行挖矿操作，因此不会将该交易放入私有链中。
+
+通过console启动挖矿：
+
+```
+> miner.start(1)
+```
+
+开始挖矿后，可以看到交易开始产生进度，信息也开始有所变化：![](/assets/3.1.16.png)当交易完成时，交易状态如下，同时ACCOUNT3的余额变为200：![](/assets/3.1.17.png)![](/assets/3.1.18.png)
 
