@@ -56,3 +56,27 @@ err = db.Update(func(tx *bolt.Tx) error {
 
 在BoltDB中，数据库操作都在一个事务中运行。BoltDB有两种事务：只读事务和读写事务。在这里，由于可能会存在添加genesis block的操作，因此我们使用读写事务（**db.Update\(...\)**）。
 
+```go
+b := tx.Bucket([]byte(blocksBucket))
+
+if b == nil {
+	genesis := NewGenesisBlock()
+	b, err := tx.CreateBucket([]byte(blocksBucket))
+	err = b.Put(genesis.Hash, genesis.Serialize())
+	err = b.Put([]byte("l"), genesis.Hash)
+	tip = genesis.Hash
+} else {
+	tip = b.Get([]byte("l"))
+}
+```
+
+上述代码是核心逻辑。首先，我们尝试获取一个bucket，如果bucket存在，则将tip设置为key\(**l**\)的值；如果bucket不存在，则创建genesis block、创建bucket、存储genesis block、将tip设置为genesis block的hash值。
+
+此外，注意创建blockchain的方法有了变化：
+
+```go
+bc := Blockchain{tip, db}
+```
+
+
+
