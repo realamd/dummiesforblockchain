@@ -174,5 +174,15 @@ type getblocks struct {
 }
 ```
 
+**getblocks**消息（比特币实现中更加复杂）：返回当前节点所拥有的block的hash值列表，而不是所有block的详细信息。出于降低网络负荷的目的，若需要下载block，可以从多个节点同时下载，没必要从单个节点下载。相应的消息处理函数也很简单：
 
+```go
+func handleGetBlocks(request []byte, bc *Blockchain) {
+    ...
+    blocks := bc.GetBlockHashes()
+    sendInv(payload.AddrFrom, "block", blocks)
+}
+```
+
+我们的实现中，该消息处理函数通过发送inv消息返回所有block的hash值。
 
