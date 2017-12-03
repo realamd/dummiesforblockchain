@@ -36,7 +36,9 @@
     * [工作量证明](chapter1/jiao-yi/gong-zuo-liang-zheng-ming.md)
     * [未消费TXO\(UTXO\)](chapter1/jiao-yi/wei-xiao-fei-txo-utxo.md)
     * [货币流通](chapter1/jiao-yi/huo-bi-liu-tong.md)
-  * 地址
+    * [总结](chapter1/jiao-yi/zong-jie.md)
+  * [地址](chapter1/di-zhi.md)
+    * [引言](chapter1/di-zhi/yin-yan.md)
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
 * 基于以太坊建立私有链

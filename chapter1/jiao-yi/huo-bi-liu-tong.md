@@ -84,13 +84,78 @@ func (bc *Blockchain) MineBlock(transactions []*Transaction) {
 
 ```go
 func (cli *CLI) send(from, to string, amount int) {
-	bc := NewBlockchain(from)
-	defer bc.db.Close()
+    bc := NewBlockchain(from)
+    defer bc.db.Close()
 
-	tx := NewUTXOTransaction(from, to, amount, bc)
-	bc.MineBlock([]*Transaction{tx})
-	fmt.Println("Success!")
+    tx := NewUTXOTransaction(from, to, amount, bc)
+    bc.MineBlock([]*Transaction{tx})
+    fmt.Println("Success!")
 }
+```
+
+消费意味着创建一个交易，然后挖一个block存储该交易，并将block添加到blockchain中。但是比特币的做法不同：比特币不会为一个新的交易马上去挖矿，而是会先将新交易缓存内存池mempool，当矿工即将挖矿时，从内存池中将所有交易取出，整体放到block中，并添加到blockchain。
+
+让我们尝试进行一些交易：
+
+```
+$ blockchain_go send -from Ivan -to Pedro -amount 6
+00000001b56d60f86f72ab2a59fadb197d767b97d4873732be505e0a65cc1e37
+
+Success!
+
+$ blockchain_go getbalance -address Ivan
+Balance of 'Ivan': 4
+
+$ blockchain_go getbalance -address Pedro
+Balance of 'Pedro': 6
+```
+
+Ivan给了Pedro 6元，此时Ivan余4元，Pedro余6元。然后，Pedro给Helen 2元，Ivan给Helen 2元：
+
+```
+$ blockchain_go send -from Pedro -to Helen -amount 2
+00000099938725eb2c7730844b3cd40209d46bce2c2af9d87c2b7611fe9d5bdf
+
+Success!
+
+$ blockchain_go send -from Ivan -to Helen -amount 2
+000000a2edf94334b1d94f98d22d7e4c973261660397dc7340464f7959a7a9aa
+
+Success!
+```
+
+此时，Helen锁定两个TXO：一个来自Pedro，一个来自Ivan。Helen给Rachel 3元，此时Ivan余2元，Pedro余4元，Helen余1元，Rachel余3元：
+
+```
+$ blockchain_go send -from Helen -to Rachel -amount 3
+000000c58136cffa669e767b8f881d16e2ede3974d71df43058baaf8c069f1a0
+
+Success!
+
+$ blockchain_go getbalance -address Ivan
+Balance of 'Ivan': 2
+
+$ blockchain_go getbalance -address Pedro
+Balance of 'Pedro': 4
+
+$ blockchain_go getbalance -address Helen
+Balance of 'Helen': 1
+
+$ blockchain_go getbalance -address Rachel
+Balance of 'Rachel': 3
+```
+
+一切OK！尝试一种异常情况：Pedro给Ivan5元，但是Pedro只有4元，消费失败。交易失败前后，Pedro和Ivan的余额未发生变化。
+
+```
+$ blockchain_go send -from Pedro -to Ivan -amount 5
+panic: ERROR: Not enough funds
+
+$ blockchain_go getbalance -address Pedro
+Balance of 'Pedro': 4
+
+$ blockchain_go getbalance -address Ivan
+Balance of 'Ivan': 2
 ```
 
 
