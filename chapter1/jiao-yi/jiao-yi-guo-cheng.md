@@ -2,11 +2,24 @@
 
 ```go
 type Block struct {
-	Timestamp     int64
-	Transactions  []*Transaction
-	PrevBlockHash []byte
-	Hash          []byte
-	Nonce         int
+    Timestamp     int64
+    Transactions  []*Transaction
+    PrevBlockHash []byte
+    Hash          []byte
+    Nonce         int
+}
+```
+
+**NewBlock**和**NewGenesisBlock**方法也需要修改：
+
+```go
+func NewBlock(transactions []*Transaction, prevBlockHash []byte) *Block {
+	block := &Block{time.Now().Unix(), transactions, prevBlockHash, []byte{}, 0}
+	...
+}
+
+func NewGenesisBlock(coinbase *Transaction) *Block {
+	return NewBlock([]*Transaction{coinbase}, []byte{})
 }
 ```
 
