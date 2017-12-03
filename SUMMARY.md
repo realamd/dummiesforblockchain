@@ -33,6 +33,7 @@
     * [交易输入\(TXI\)](chapter1/jiao-yi/jiao-yi-shu-516528-txi.md)
     * [先有蛋后有鸡](chapter1/jiao-yi/xian-you-dan-hou-you-ji.md)
     * [交易\(Transaction\)](chapter1/jiao-yi/jiao-yi-guo-cheng.md)
+    * [工作量证明](chapter1/jiao-yi/gong-zuo-liang-zheng-ming.md)
   * 地址
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
