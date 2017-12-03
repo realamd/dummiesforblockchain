@@ -166,3 +166,9 @@ func handleVersion(request []byte, bc *Blockchain) {
 
 随后，接收节点将自身的**BestHeight**与消息体（即发送节点）中的**BestHeight**进行比较。若接收节点的blockchain更长，将发送**version**消息；若发送节点的blockchain更长，将发送**getblocks**消息。
 
+# **getblocks消息**
+
+
+
+
+
