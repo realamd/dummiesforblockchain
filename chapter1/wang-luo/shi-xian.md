@@ -65,5 +65,11 @@ func StartServer(nodeID, minerAddress string) {
 }
 ```
 
+  
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Songti SC'; color: \#797979}  
+span.s1 {font: 10.5px Menlo}  
+span.s2 {font: 12.0px 'Helvetica Neue'}  
 
+
+首先，将中心节点地址硬编码到程序中：一开始每个节点必须要知道该地址。**minerAddress**参数表示接收挖矿奖励的地址。
 
