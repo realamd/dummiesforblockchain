@@ -312,5 +312,65 @@ func handleBlock(request []byte, bc *Blockchain) {
 >
 > _待完善:目前实现使用UTXOSet.Reindex\(\)对UTXO进行重建，后续应该使用UTXOSet.Update\(block\)，避免重建整个blockchain带来的性能影响。_
 
+**tx**消息处理函数更复杂一些：
+
+```go
+func handleTx(request []byte, bc *Blockchain) {
+    ...
+    txData := payload.Transaction
+    tx := DeserializeTransaction(txData)
+    mempool[hex.EncodeToString(tx.ID)] = tx
+
+    if nodeAddress == knownNodes[0] {
+        for _, node := range knownNodes {
+            if node != nodeAddress && node != payload.AddFrom {
+                sendInv(node, "tx", [][]byte{tx.ID})
+            }
+        }
+    } else {
+        if len(mempool) >= 2 && len(miningAddress) > 0 {
+        MineTransactions:
+            var txs []*Transaction
+
+            for id := range mempool {
+                tx := mempool[id]
+                if bc.VerifyTransaction(&tx) {
+                    txs = append(txs, &tx)
+                }
+            }
+
+            if len(txs) == 0 {
+                fmt.Println("All transactions are invalid! Waiting for new ones...")
+                return
+            }
+
+            cbTx := NewCoinbaseTX(miningAddress, "")
+            txs = append(txs, cbTx)
+
+            newBlock := bc.MineBlock(txs)
+            UTXOSet := UTXOSet{bc}
+            UTXOSet.Reindex()
+
+            fmt.Println("New block is mined!")
+
+            for _, tx := range txs {
+                txID := hex.EncodeToString(tx.ID)
+                delete(mempool, txID)
+            }
+
+            for _, node := range knownNodes {
+                if node != nodeAddress {
+                    sendInv(node, "block", [][]byte{newBlock.Hash})
+                }
+            }
+
+            if len(mempool) > 0 {
+                goto MineTransactions
+            }
+        }
+    }
+}
+```
+
 
 
