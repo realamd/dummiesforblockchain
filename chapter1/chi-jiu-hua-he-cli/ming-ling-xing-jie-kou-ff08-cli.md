@@ -17,35 +17,43 @@ CLI的入口是**Run**函数：
 
 ```go
 func (cli *CLI) Run() {
-	cli.validateArgs()
+    cli.validateArgs()
 
-	addBlockCmd := flag.NewFlagSet("addblock", flag.ExitOnError)
-	printChainCmd := flag.NewFlagSet("printchain", flag.ExitOnError)
+    addBlockCmd := flag.NewFlagSet("addblock", flag.ExitOnError)
+    printChainCmd := flag.NewFlagSet("printchain", flag.ExitOnError)
 
-	addBlockData := addBlockCmd.String("data", "", "Block data")
+    addBlockData := addBlockCmd.String("data", "", "Block data")
 
-	switch os.Args[1] {
-	case "addblock":
-		err := addBlockCmd.Parse(os.Args[2:])
-	case "printchain":
-		err := printChainCmd.Parse(os.Args[2:])
-	default:
-		cli.printUsage()
-		os.Exit(1)
-	}
+    switch os.Args[1] {
+    case "addblock":
+        err := addBlockCmd.Parse(os.Args[2:])
+    case "printchain":
+        err := printChainCmd.Parse(os.Args[2:])
+    default:
+        cli.printUsage()
+        os.Exit(1)
+    }
 
-	if addBlockCmd.Parsed() {
-		if *addBlockData == "" {
-			addBlockCmd.Usage()
-			os.Exit(1)
-		}
-		cli.addBlock(*addBlockData)
-	}
+    if addBlockCmd.Parsed() {
+        if *addBlockData == "" {
+            addBlockCmd.Usage()
+            os.Exit(1)
+        }
+        cli.addBlock(*addBlockData)
+    }
 
-	if printChainCmd.Parsed() {
-		cli.printChain()
-	}
+    if printChainCmd.Parsed() {
+        cli.printChain()
+    }
 }
+```
+
+我们使用flag标准库处理命令行参数：
+
+```go
+addBlockCmd := flag.NewFlagSet("addblock", flag.ExitOnError)
+printChainCmd := flag.NewFlagSet("printchain", flag.ExitOnError)
+addBlockData := addBlockCmd.String("data", "", "Block data")
 ```
 
 
