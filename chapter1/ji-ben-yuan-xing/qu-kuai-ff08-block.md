@@ -19,13 +19,23 @@ Hash值用于确保blockchain的安全。Hash计算是计算敏感的操作，�
 
 ```go
 func (b *Block) SetHash() {
-	timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
-	headers := bytes.Join([][]byte{b.PrevBlockHash, b.Data, timestamp}, []byte{})
-	hash := sha256.Sum256(headers)
+    timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
+    headers := bytes.Join([][]byte{b.PrevBlockHash, b.Data, timestamp}, []byte{})
+    hash := sha256.Sum256(headers)
 
-	b.Hash = hash[:]
+    b.Hash = hash[:]
 }
 ```
 
+接下来，实现**NewBlock**方法用于创建一个Block：
 
+```go
+func NewBlock(data string, prevBlockHash []byte) *Block {
+	block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}}
+	block.SetHash()
+	return block
+}
+```
+
+OK，block实现完成啦！
 
