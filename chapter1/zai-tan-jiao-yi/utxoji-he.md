@@ -190,5 +190,19 @@ func (u UTXOSet) Update(block *Block) {
 }
 ```
 
+该方法看上去很长，但实际很简单。当新的block生成时，需要更新UTXO集合。更新意味着删除已消费的TXO，同时将新生成的交易中的UTXO添加进来。若某个交易的UTXO全部被删除，该交易也会随之被移除。
+
+```go
+func (cli *CLI) createBlockchain(address string) {
+    ...
+    bc := CreateBlockchain(address)
+    defer bc.db.Close()
+
+    UTXOSet := UTXOSet{bc}
+    UTXOSet.Reindex()
+    ...
+}
+```
+
 
 
