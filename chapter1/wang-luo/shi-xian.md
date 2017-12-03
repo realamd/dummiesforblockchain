@@ -408,5 +408,18 @@ if len(txs) == 0 {
 }
 ```
 
+首先，对mempool中的所有交易进行验证，忽略所有无效交易，若没有任何有效交易，则停止挖矿。
+
+```go
+cbTx := NewCoinbaseTX(miningAddress, "")
+txs = append(txs, cbTx)
+
+newBlock := bc.MineBlock(txs)
+UTXOSet := UTXOSet{bc}
+UTXOSet.Reindex()
+
+fmt.Println("New block is mined!")
+```
+
 
 
