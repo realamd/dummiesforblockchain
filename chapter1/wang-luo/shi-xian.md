@@ -421,5 +421,26 @@ UTXOSet.Reindex()
 fmt.Println("New block is mined!")
 ```
 
+所有有效交易和一个用于奖励的coinbase交易将被放到一个block中，当完成挖矿后，UTXO将被重建。
 
+> _待完善:与之前一样，后续应该使用UTXOSet.Update\(block\)，避免重建整个blockchain带来的性能影响。_
+
+```go
+for _, tx := range txs {
+    txID := hex.EncodeToString(tx.ID)
+    delete(mempool, txID)
+}
+
+for _, node := range knownNodes {
+    if node != nodeAddress {
+        sendInv(node, "block", [][]byte{newBlock.Hash})
+    }
+}
+
+if len(mempool) > 0 {
+    goto MineTransactions
+}
+```
+
+当挖矿结束后，从mempool中移除交易信息，同时当前节点将向其他节点发送**inv**消息，其中包含最新挖到的block的hash值。
 
