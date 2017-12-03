@@ -6,6 +6,8 @@
   * [基本原型](chapter1/ji-ben-yuan-xing.md)
     * [引言](chapter1/ji-ben-yuan-xing/yin-yan.md)
     * [区块（Block）](chapter1/ji-ben-yuan-xing/qu-kuai-ff08-block.md)
+    * [区块链（Blockchain）](chapter1/ji-ben-yuan-xing/qu-kuai-lian-ff08-blockchain.md)
+    * [总结](chapter1/ji-ben-yuan-xing/zong-jie.md)
   * [工作量证明](chapter1/gong-zuo-liang-zheng-ming.md)
   * 持久化和CLI
   * 地址

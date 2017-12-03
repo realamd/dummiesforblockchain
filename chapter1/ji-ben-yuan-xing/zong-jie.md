@@ -1,0 +1,5 @@
+  
+我们构建了一个简单的blockchain原型：目前该blockchain仅仅是一个block数组，每个block有一个指向上一个block的链接。而实际应用的blockchain更加复杂。在我们的blockchain中，添加新的block简单而快速，而实际应用中的blockchain添加block之前需要进行一些复杂计算操作（即工作量证明机制）。同时，blockchain是一个非单一决策者的分布式数据库。因此，添加新block需要被所有参与者同意（即一致性协议）。此外，在我们的blockchain中还没有任何Transaction信息！
+
+在未来的文章中，我们讨论上述的所有特性。
+
