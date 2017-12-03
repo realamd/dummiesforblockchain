@@ -44,6 +44,7 @@
     * [数字签名](chapter1/di-zhi/shu-zi-qian-ming.md)
     * [椭圆曲线加密算法](chapter1/di-zhi/tuo-yuan-qu-xian-jia-mi-suan-fa.md)
     * [Base58编码算法](chapter1/di-zhi/base58bian-ma-suan-fa.md)
+    * [地址](chapter1/di-zhi/di-zhi.md)
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
 * 基于以太坊建立私有链
