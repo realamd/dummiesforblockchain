@@ -11,3 +11,25 @@
 
 让我们回顾下**FindUnspentTransactions**方法：
 
+```go
+func (bc *Blockchain) FindUnspentTransactions(pubKeyHash []byte) []Transaction {
+    ...
+    bci := bc.Iterator()
+
+    for {
+        block := bci.Next()
+
+        for _, tx := range block.Transactions {
+            ...
+        }
+
+        if len(block.PrevBlockHash) == 0 {
+            break
+        }
+    }
+    ...
+}
+```
+
+
+
