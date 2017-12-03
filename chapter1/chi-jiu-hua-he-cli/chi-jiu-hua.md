@@ -134,5 +134,9 @@ err = b.Put([]byte("l"), newBlock.Hash)
 bc.tip = newBlock.Hash
 ```
 
+在挖到一个新block后，我们将序列化后的结果存储到数据库文件中同时将key\(**l**\)值更新为最新block的hash值。
+
+完成！一切简单明了。
+
 
 
