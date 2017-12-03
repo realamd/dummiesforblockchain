@@ -72,7 +72,7 @@ func (bc *Blockchain) FindUnspentTransactions(address string) []Transaction {
 
 ```go
 if out.CanBeUnlockedWith(address) {
-	unspentTXs = append(unspentTXs, tx)
+    unspentTXs = append(unspentTXs, tx)
 }
 ```
 
@@ -80,11 +80,24 @@ if out.CanBeUnlockedWith(address) {
 
 ```go
 if spentTXOs[txID] != nil {
-	for _, spentOut := range spentTXOs[txID] {
-		if spentOut == outIdx {
-			continue Outputs
-		}
-	}
+    for _, spentOut := range spentTXOs[txID] {
+        if spentOut == outIdx {
+            continue Outputs
+        }
+    }
+}
+```
+
+对于已经被TXI引用的TXO，不做处理；对于未被TXI引用的TXO，即UTXO，将包含其的交易保存到交易列表中。对于coinbase交易，不需要遍历TXI，因为其TXI不会引用任何TXO。
+
+```go
+if tx.IsCoinbase() == false {
+    for _, in := range tx.Vin {
+        if in.CanUnlockOutputWith(address) {
+            inTxID := hex.EncodeToString(in.Txid)
+            spentTXOs[inTxID] = append(spentTXOs[inTxID], in.Vout)
+        }
+    }
 }
 ```
 
