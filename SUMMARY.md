@@ -28,6 +28,7 @@
   * [交易](chapter1/jiao-yi.md)
     * [引言](chapter1/jiao-yi/yin-yan.md)
     * [There is no spoon](chapter1/jiao-yi/there-is-no-spoon.md)
+    * [比特币交易](chapter1/jiao-yi/bi-te-bi-jiao-yi.md)
   * 地址
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
