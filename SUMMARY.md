@@ -25,8 +25,9 @@
     * [查看blockchain内容](chapter1/chi-jiu-hua-he-cli/cha-kan-blockchain-nei-rong.md)
     * [命令行接口（CLI）](chapter1/chi-jiu-hua-he-cli/ming-ling-xing-jie-kou-ff08-cli.md)
     * [总结](chapter1/chi-jiu-hua-he-cli/zong-jie.md)
+  * [交易](chapter1/jiao-yi.md)
+    * 引言
   * 地址
-  * 交易
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
 * 基于以太坊建立私有链
