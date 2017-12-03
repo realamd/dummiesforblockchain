@@ -282,3 +282,35 @@ type tx struct {
 
 **block**消息处理函数很简单：
 
+```go
+func handleBlock(request []byte, bc *Blockchain) {
+    ...
+
+    blockData := payload.Block
+    block := DeserializeBlock(blockData)
+
+    fmt.Println("Recevied a new block!")
+    bc.AddBlock(block)
+
+    fmt.Printf("Added block %x\n", block.Hash)
+
+    if len(blocksInTransit) > 0 {
+        blockHash := blocksInTransit[0]
+        sendGetData(payload.AddrFrom, "block", blockHash)
+
+        blocksInTransit = blocksInTransit[1:]
+    } else {
+        UTXOSet := UTXOSet{bc}
+        UTXOSet.Reindex()
+    }
+}
+```
+
+当收到一个新block时，将该block加入blockchain中。如果还有其他待下载的block，将向相同的节点发送消息来获取block信息。当所有block均已下载，UTXO将被重建。
+
+> _待完善:目前实现认为新block是有效的，后续在新block加入blockchain之前，应该对其进行有效性验证。_
+>
+> _待完善:目前实现使用UTXOSet.Reindex\(\)对UTXO进行重建，后续应该使用UTXOSet.Update\(block\)，避免重建整个blockchain带来的性能影响。_
+
+
+
