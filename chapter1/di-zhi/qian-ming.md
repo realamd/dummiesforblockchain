@@ -43,9 +43,15 @@ func (tx *Transaction) Sign(privKey ecdsa.PrivateKey, prevTXs map[string]Transac
 
 ```go
 if tx.IsCoinbase() {
-	return
+    return
 }
 ```
 
+Coinbase交易没有真实的TXI，因此此交易不进行签名。
 
+```
+txCopy := tx.TrimmedCopy()
+```
+
+基于TrimmedCopy交易进行签名：
 
