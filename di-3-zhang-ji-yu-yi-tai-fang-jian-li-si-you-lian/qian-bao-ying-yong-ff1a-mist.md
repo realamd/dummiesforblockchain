@@ -1,4 +1,4 @@
-Mist是以太坊官方提供的钱包应用，为geth的GUI版本。官方下载地址：https://github.com/ethereum/mist/releases，本文中使用的是0.9.3版本。
+Mist是以太坊官方提供的钱包应用，为geth的GUI版本。官方下载地址：[https://github.com/ethereum/mist/releases，本文中使用的是0.9.3版本。](https://github.com/ethereum/mist/releases，本文中使用的是0.9.3版本。)
 
 # 连接私有链
 
@@ -61,7 +61,7 @@ Mist启动后查找本地默认ipc是否存在（Mac默认文件为$HOME/Library
 [xxxx-xx-xx 01:04:43.515] [INFO] updateChecker - App is up-to-date.
 ```
 
-**注意：**“Sanity check failed for Geth Error**”**错误信息标识Mist所需的geth版本信息与从私有链获取到的geth版本信息不匹配，暂没发现该错误对后续应用造成影响，可以先忽略。
+**注意：**“Sanity check failed for Geth Error**”**错误信息标识Mist所需的geth版本信息与从私有链获取到的geth版本信息不匹配，暂没发现该错误对后续应用造成影响，可以先忽略。![](/assets/3.1.2.png)Mist界面启动后，右上角显示PRIVATE-NET，已经成功连接到私有链网络中了，点击LAUNCH APPLICATION，进入Mist主界面：![](/assets/3.1.3.png)可以看到界面显示已经有一个账户，拥有1590个以太币，与之前geth命令行返回的信息一致。
 
-
+# 创建账户
 
