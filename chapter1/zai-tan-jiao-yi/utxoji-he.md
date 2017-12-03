@@ -60,5 +60,30 @@ type UTXOSet struct {
 }
 ```
 
+我们仍使用同一个数据库，将UTXO集合存储在不同的bucket中。因此，**UTXOSet**和**Blockchain**相伴而生。
+
+```go
+func (u UTXOSet) Reindex() {
+    db := u.Blockchain.db
+    bucketName := []byte(utxoBucket)
+
+    err := db.Update(func(tx *bolt.Tx) error {
+        err := tx.DeleteBucket(bucketName)
+        _, err = tx.CreateBucket(bucketName)
+    })
+
+    UTXO := u.Blockchain.FindUTXO()
+
+    err = db.Update(func(tx *bolt.Tx) error {
+        b := tx.Bucket(bucketName)
+
+        for txID, outs := range UTXO {
+            key, err := hex.DecodeString(txID)
+            err = b.Put(key, outs.Serialize())
+        }
+    })
+}
+```
+
 
 
