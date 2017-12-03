@@ -1,8 +1,8 @@
 # Summary
 
 * [前言](README.md)
-* 比特币、区块链、智能合约
-* [基于Go实现区块链](chapter1.md)
+* 第1章 比特币、区块链、智能合约
+* [第2章 基于Go实现区块链](chapter1.md)
   * [基本原型](chapter1/ji-ben-yuan-xing.md)
     * [引言](chapter1/ji-ben-yuan-xing/yin-yan.md)
     * [区块\(Block\)](chapter1/ji-ben-yuan-xing/qu-kuai-ff08-block.md)
@@ -55,5 +55,5 @@
     * [P2PKH](chapter1/zai-tan-jiao-yi/p2pkh.md)
     * [总结](chapter1/zai-tan-jiao-yi/zong-jie.md)
   * 网络
-* 基于以太坊建立私有链
+* 第3章 基于以太坊建立私有链
 
