@@ -31,5 +31,34 @@ func (bc *Blockchain) FindUnspentTransactions(pubKeyHash []byte) []Transaction {
 }
 ```
 
+该方法返回所有UTXO。由于交易存储在block中，因此需要遍历blockchain中的所有block，对block中的所有交易进行检查。截止2017/9/18，比特币有485860个block，整个数据库大小超过140GB。这意味着需要遍历整个数据库中的所有block对交易进行检查。可想而知效率会非常低！
+
+为了解决此问题，我们需要对UTXO建立索引，这就是所谓的UTXO集合。UTXO集合其实是一个缓存，遍历blockchain中所有交易得到的，用于计算余额以及交易验证。截止2017/9，比特币的UTXO集合大小约为2.7GB。
+
+目前，下述方法用于查找交易：
+
+> 1. Blockchain.FindUnspentTransactions – 遍历所有block返回UTXO
+> 2. Blockchain.FindSpendableOutputs – 新交易创建时，通过此函数找到满足要求的可以供消费的交易。此函数使用到了Blockchain.FindUnspentTransactions
+> 3. Blockchain.FindUTXO – 返回指定公钥hash值的所有UTXO，用于计算余额。此函数使用到了Blockchain.FindUnspentTransactions
+> 4. Blockchain.FindTransaction  - 根据交易ID查找交易。该函数会遍历所有block进行查找。
+
+上述方法均会遍历整个数据库中所有block，但由于UTXO集合仅仅存储UTXO不存储所有交易，因此UTXO集合无法为上述所有方法带来改善，如Blockchain.**FindTransaction**方法。
+
+所以，我们考虑使用下面的新方法：
+
+> 1. Blockchain.FindUTXO – 遍历block返回所有UTXO
+> 2. UTXOSet.Reindex – 将Blockchain.FindUTXO结果存储到数据库
+> 3. UTXOSet.FindSpendableOutputs  - 和Blockchain. FindSpendableOutputs类似，只不过基于UTXO集合进行计算
+> 4. UTXOSet.FindUTXO - 和Blockchain.FindUTXO 类似，只不过基于UTXO集合进行计算
+> 5. Blockchain.FindTransaction保持不变
+
+现在，两个使用最频繁的方法均使用了UTXO集合做缓存：
+
+```go
+type UTXOSet struct {
+    Blockchain *Blockchain
+}
+```
+
 
 
