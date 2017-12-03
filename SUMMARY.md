@@ -59,6 +59,7 @@
     * [总结](chapter1/zai-tan-jiao-yi/zong-jie.md)
   * [网络](chapter1/wang-luo.md)
     * 引言
+    * [Blockchain网络](chapter1/wang-luo/blockchainwang-luo.md)
 * [第3章 基于以太坊建立私有链](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian.md)
 * [第4章 DApps](di-4-zhang-dapps.md)
 * [第5章 智能合约](di-5-zhang-zhi-neng-he-yue.md)
