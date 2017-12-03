@@ -5,7 +5,7 @@
 * [基于Go实现区块链](chapter1.md)
   * [基本原型](chapter1/ji-ben-yuan-xing.md)
     * [引言](chapter1/ji-ben-yuan-xing/yin-yan.md)
-    * 区块（Block）
+    * [区块（Block）](chapter1/ji-ben-yuan-xing/qu-kuai-ff08-block.md)
   * [工作量证明](chapter1/gong-zuo-liang-zheng-ming.md)
   * 持久化和CLI
   * 地址
