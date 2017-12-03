@@ -4,8 +4,8 @@ BoltDB允许遍历bucket中的所有key，但是key按照字节序的顺序来�
 
 ```go
 type BlockchainIterator struct {
-	currentHash []byte
-	db          *bolt.DB
+    currentHash []byte
+    db          *bolt.DB
 }
 ```
 
@@ -13,9 +13,9 @@ type BlockchainIterator struct {
 
 ```go
 func (bc *Blockchain) Iterator() *BlockchainIterator {
-	bci := &BlockchainIterator{bc.tip, bc.db}
+    bci := &BlockchainIterator{bc.tip, bc.db}
 
-	return bci
+    return bci
 }
 ```
 
@@ -25,21 +25,21 @@ func (bc *Blockchain) Iterator() *BlockchainIterator {
 
 ```go
 func (i *BlockchainIterator) Next() *Block {
-	var block *Block
+    var block *Block
 
-	err := i.db.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(blocksBucket))
-		encodedBlock := b.Get(i.currentHash)
-		block = DeserializeBlock(encodedBlock)
+    err := i.db.View(func(tx *bolt.Tx) error {
+        b := tx.Bucket([]byte(blocksBucket))
+        encodedBlock := b.Get(i.currentHash)
+        block = DeserializeBlock(encodedBlock)
 
-		return nil
-	})
+        return nil
+    })
 
-	i.currentHash = block.PrevBlockHash
+    i.currentHash = block.PrevBlockHash
 
-	return block
+    return block
 }
 ```
 
-
+数据部分到此为止！
 
