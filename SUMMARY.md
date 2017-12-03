@@ -63,6 +63,7 @@
     * [节点角色](chapter1/wang-luo/jie-dian-jiao-se.md)
     * [精简](chapter1/wang-luo/jing-jian.md)
     * [实现](chapter1/wang-luo/shi-xian.md)
+    * [演练](chapter1/wang-luo/yan-lian.md)
 * [第3章 基于以太坊建立私有链](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian.md)
 * [第4章 DApps](di-4-zhang-dapps.md)
 * [第5章 智能合约](di-5-zhang-zhi-neng-he-yue.md)
