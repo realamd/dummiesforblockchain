@@ -194,45 +194,61 @@ return true
 
 ```go
 func (bc *Blockchain) FindTransaction(ID []byte) (Transaction, error) {
-	bci := bc.Iterator()
+    bci := bc.Iterator()
 
-	for {
-		block := bci.Next()
+    for {
+        block := bci.Next()
 
-		for _, tx := range block.Transactions {
-			if bytes.Compare(tx.ID, ID) == 0 {
-				return *tx, nil
-			}
-		}
+        for _, tx := range block.Transactions {
+            if bytes.Compare(tx.ID, ID) == 0 {
+                return *tx, nil
+            }
+        }
 
-		if len(block.PrevBlockHash) == 0 {
-			break
-		}
-	}
+        if len(block.PrevBlockHash) == 0 {
+            break
+        }
+    }
 
-	return Transaction{}, errors.New("Transaction is not found")
+    return Transaction{}, errors.New("Transaction is not found")
 }
 
 func (bc *Blockchain) SignTransaction(tx *Transaction, privKey ecdsa.PrivateKey) {
-	prevTXs := make(map[string]Transaction)
+    prevTXs := make(map[string]Transaction)
 
-	for _, vin := range tx.Vin {
-		prevTX, err := bc.FindTransaction(vin.Txid)
-		prevTXs[hex.EncodeToString(prevTX.ID)] = prevTX
-	}
+    for _, vin := range tx.Vin {
+        prevTX, err := bc.FindTransaction(vin.Txid)
+        prevTXs[hex.EncodeToString(prevTX.ID)] = prevTX
+    }
 
-	tx.Sign(privKey, prevTXs)
+    tx.Sign(privKey, prevTXs)
 }
 
 func (bc *Blockchain) VerifyTransaction(tx *Transaction) bool {
-	prevTXs := make(map[string]Transaction)
+    prevTXs := make(map[string]Transaction)
 
-	for _, vin := range tx.Vin {
-		prevTX, err := bc.FindTransaction(vin.Txid)
-		prevTXs[hex.EncodeToString(prevTX.ID)] = prevTX
-	}
+    for _, vin := range tx.Vin {
+        prevTX, err := bc.FindTransaction(vin.Txid)
+        prevTXs[hex.EncodeToString(prevTX.ID)] = prevTX
+    }
 
-	return tx.Verify(prevTXs)
+    return tx.Verify(prevTXs)
+}
+```
+
+**FindTransaction**方法根据ID查找并返回交易；**SignTransaction**对于一个交易找到其所有引用的交易后，进行签名；**VerifyTransaction**对于一个交易到其所有引用的交易后，进行验证。
+
+交易签名在**NewUTXOTransaction**中进行：
+
+```go
+func NewUTXOTransaction(from, to string, amount int, bc *Blockchain) *Transaction {
+	...
+
+	tx := Transaction{nil, inputs, outputs}
+	tx.ID = tx.Hash()
+	bc.SignTransaction(&tx, wallet.PrivateKey)
+
+	return &tx
 }
 ```
 
