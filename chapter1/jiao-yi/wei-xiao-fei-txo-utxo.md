@@ -122,19 +122,19 @@ func (bc *Blockchain) FindUTXO(address string) []TXOutput {
 
 OK！下面实现**getbalance**命令：
 
-```
+```go
 func (cli *CLI) getBalance(address string) {
-	bc := NewBlockchain(address)
-	defer bc.db.Close()
+    bc := NewBlockchain(address)
+    defer bc.db.Close()
 
-	balance := 0
-	UTXOs := bc.FindUTXO(address)
+    balance := 0
+    UTXOs := bc.FindUTXO(address)
 
-	for _, out := range UTXOs {
-		balance += out.Value
-	}
+    for _, out := range UTXOs {
+        balance += out.Value
+    }
 
-	fmt.Printf("Balance of '%s': %d\n", address, balance)
+    fmt.Printf("Balance of '%s': %d\n", address, balance)
 }
 ```
 
