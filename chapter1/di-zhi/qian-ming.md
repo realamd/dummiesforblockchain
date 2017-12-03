@@ -80,9 +80,16 @@ TrimmedCopy交易包括复制原始交易中所有的TXI和TXO，区别在于Tri
 
 ```go
 for inID, vin := range txCopy.Vin {
-	prevTx := prevTXs[hex.EncodeToString(vin.Txid)]
-	txCopy.Vin[inID].Signature = nil
-	txCopy.Vin[inID].PubKey = prevTx.Vout[vin.Vout].PubKeyHash
+    prevTx := prevTXs[hex.EncodeToString(vin.Txid)]
+    txCopy.Vin[inID].Signature = nil
+    txCopy.Vin[inID].PubKey = prevTx.Vout[vin.Vout].PubKeyHash
+```
+
+对于每个TXI，为了确保万无一失，再次将**Signature**字段设置为nil，同时将**PubKey**设置为其所引用的TXO的**PubKeyHash**。此时，除了当前被处理的交易外，其他所有交易都是“空”交易（**Signature**和**PubKey**字段为nil）。由于比特币允许交易包含来自于不同地址的TXI，因此需要**单独地对每个TXI进行签名**，虽然对于我们的应用来说没必要这么做（在我们的应用中，一个交易包中的TXI均来自同一地址）。
+
+```go
+	txCopy.ID = txCopy.Hash()
+	txCopy.Vin[inID].PubKey = nil
 ```
 
 
