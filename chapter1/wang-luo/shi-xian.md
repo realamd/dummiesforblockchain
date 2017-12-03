@@ -186,3 +186,15 @@ func handleGetBlocks(request []byte, bc *Blockchain) {
 
 我们的实现中，该消息处理函数通过发送inv消息返回所有block的hash值。
 
+# **inv消息**
+
+```go
+type inv struct {
+    AddrFrom string
+    Type     string
+    Items    [][]byte
+}
+```
+
+
+
