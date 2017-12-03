@@ -136,5 +136,31 @@ func handleConnection(conn net.Conn, bc *Blockchain) {
 }
 ```
 
+**version**的消息处理函数如下：
+
+```go
+func handleVersion(request []byte, bc *Blockchain) {
+    var buff bytes.Buffer
+    var payload verzion
+
+    buff.Write(request[commandLength:])
+    dec := gob.NewDecoder(&buff)
+    err := dec.Decode(&payload)
+
+    myBestHeight := bc.GetBestHeight()
+    foreignerBestHeight := payload.BestHeight
+
+    if myBestHeight < foreignerBestHeight {
+        sendGetBlocks(payload.AddrFrom)
+    } else if myBestHeight > foreignerBestHeight {
+        sendVersion(payload.AddrFrom, bc)
+    }
+
+    if !nodeIsKnown(payload.AddrFrom) {
+        knownNodes = append(knownNodes, payload.AddrFrom)
+    }
+}
+```
+
 
 
