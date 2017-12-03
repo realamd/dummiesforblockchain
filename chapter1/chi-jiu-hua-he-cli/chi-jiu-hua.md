@@ -42,9 +42,17 @@ func NewBlockchain() *Blockchain {
 
 让我们一段一段来看实现。
 
-```
+```go
 db, err := bolt.Open(dbFile, 0600, nil)
 ```
 
+上面代码是打开BoltDB文件的标准方式，如果文件不存在不会反馈错误。
 
+```go
+err = db.Update(func(tx *bolt.Tx) error {
+...
+})
+```
+
+在BoltDB中，数据库操作都在一个事务中运行。BoltDB有两种事务：只读事务和读写事务。在这里，由于可能会存在添加genesis block的操作，因此我们使用读写事务（**db.Update\(...\)**）。
 
