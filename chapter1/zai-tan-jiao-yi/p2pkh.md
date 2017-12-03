@@ -40,5 +40,7 @@ TXO定义解锁逻辑，TXI提供数据解锁TXO，脚本执行如下：
 >     Script: **OP\_CHECKSIG**
 > 8. Stack: **true or false. Script: empty.**
 
+**OP\_DUP**复制复制栈顶数据，**OP\_HASH160**获取栈顶数据、使用**RIPEMD160**生成hash值并放入堆栈。**OP\_EQUALVERIFY**比较两个栈顶数据，不相等则结束脚本。**OP\_CHECKSIG**对交易进行哈希处理并使用**&lt;signature&gt;、&lt;pubKey&gt;**验证签名。
 
+正因为有了script脚本语言，比特币可以成为智能合约平台，如该脚本可以支持多种支付模式，不仅仅是单个数字了。
 
