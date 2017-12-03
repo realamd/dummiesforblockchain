@@ -13,6 +13,7 @@
     * [PoW](chapter1/gong-zuo-liang-zheng-ming/pow.md)
     * [哈希](chapter1/gong-zuo-liang-zheng-ming/ha-xi.md)
     * [Hashcash算法](chapter1/gong-zuo-liang-zheng-ming/hashcashsuan-fa.md)
+    * [实现](chapter1/gong-zuo-liang-zheng-ming/shi-xian.md)
   * 持久化和CLI
   * 地址
   * 交易
