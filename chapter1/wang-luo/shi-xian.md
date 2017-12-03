@@ -73,5 +73,18 @@ if nodeAddress != knownNodes[0] {
 }
 ```
 
+若当前节点不是中心节点，需要向中心节点发送**version**消息，用于检查当前节点的blockchain是否过时。
+
+```go
+func sendVersion(addr string, bc *Blockchain) {
+    bestHeight := bc.GetBestHeight()
+    payload := gobEncode(version{nodeVersion, bestHeight, nodeAddress})
+
+    request := append(commandToBytes("version"), payload...)
+
+    sendData(addr, request)
+}
+```
+
 
 
