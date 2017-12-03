@@ -2,7 +2,7 @@
 
 * [前言](README.md)
 * [第1章 去中心化世界](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue.md)
-  * 比特币
+  * [比特币](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi.md)
   * 区块链
   * 智能合约
 * [第2章 基于Go实现区块链](chapter1.md)
@@ -58,7 +58,7 @@
     * [P2PKH](chapter1/zai-tan-jiao-yi/p2pkh.md)
     * [总结](chapter1/zai-tan-jiao-yi/zong-jie.md)
   * 网络
-* 第3章 基于以太坊建立私有链
+* [第3章 基于以太坊建立私有链](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian.md)
 * [第4章 DApps](di-4-zhang-dapps.md)
 * [第5章 智能合约](di-5-zhang-zhi-neng-he-yue.md)
 * 附录
