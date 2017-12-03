@@ -214,5 +214,41 @@ func (cli *CLI) send(from, to string, amount int) {
 }
 ```
 
+新的block生成时，更新UTXO集合。
+
+下面看看运行情况：
+
+```
+$ blockchain_go createblockchain -address 1JnMDSqVoHi4TEFXNw5wJ8skPsPf4LHkQ1
+00000086a725e18ed7e9e06f1051651a4fc46a315a9d298e59e57aeacbe0bf73
+
+Done!
+
+$ blockchain_go send -from 1JnMDSqVoHi4TEFXNw5wJ8skPsPf4LHkQ1 -to 12DkLzLQ4B3gnQt62EPRJGZ38n3zF4Hzt5 -amount 6
+0000001f75cb3a5033aeecbf6a8d378e15b25d026fb0a665c7721a5bb0faa21b
+
+Success!
+
+$ blockchain_go send -from 1JnMDSqVoHi4TEFXNw5wJ8skPsPf4LHkQ1 -to 12ncZhA5mFTTnTmHq1aTPYBri4jAK8TacL -amount 4
+000000cc51e665d53c78af5e65774a72fc7b864140a8224bf4e7709d8e0fa433
+
+Success!
+
+$ blockchain_go getbalance -address 1JnMDSqVoHi4TEFXNw5wJ8skPsPf4LHkQ1
+Balance of '1F4MbuqjcuJGymjcuYQMUVYB37AWKkSLif': 20
+
+$ blockchain_go getbalance -address 12DkLzLQ4B3gnQt62EPRJGZ38n3zF4Hzt5
+Balance of '1XWu6nitBWe6J6v6MXmd5rhdP7dZsExbx': 6
+
+$ blockchain_go getbalance -address 12ncZhA5mFTTnTmHq1aTPYBri4jAK8TacL
+Balance of '13UASQpCR8Nr41PojH8Bz4K6cmTCqweskL': 4
+```
+
+**1JnMDSqVoHi4TEFXNw5wJ8skPsPf4LHkQ1**收到3次奖励：
+
+> 1. 第1次奖励，挖到了genesis block
+> 2. 第2次奖励，挖到了block:0000001f75cb3a5033aeecbf6a8d378e15b25d026fb0a665c7721a5bb0faa21b
+> 3. 第3次奖励，挖到了block:000000cc51e665d53c78af5e65774a72fc7b864140a8224bf4e7709d8e0fa433
+
 
 
