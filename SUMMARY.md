@@ -1,7 +1,7 @@
 # Summary
 
 * [前言](README.md)
-* [第1章 比特币、区块链、智能合约](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue.md)
+* [第1章 去中心化世界](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue.md)
   * 比特币
   * 区块链
   * 智能合约
@@ -59,4 +59,7 @@
     * [总结](chapter1/zai-tan-jiao-yi/zong-jie.md)
   * 网络
 * 第3章 基于以太坊建立私有链
+* [第4章 DApps](di-4-zhang-dapps.md)
+* 第5章 智能合约
+* 附录
 
