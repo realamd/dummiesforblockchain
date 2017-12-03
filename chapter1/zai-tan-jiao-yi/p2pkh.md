@@ -24,35 +24,21 @@
 
 TXO定义解锁逻辑，TXI提供数据解锁TXO，脚本执行如下：
 
-> Stack: empty
->
-> Script: &lt;signature&gt; &lt;pubKey&gt; OP\_DUP OP\_HASH160 &lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG
->
-> Stack: &lt;signature&gt;
->
-> Script: &lt;pubKey&gt; OP\_DUP OP\_HASH160 &lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG
->
-> Stack: &lt;signature&gt; &lt;pubKey&gt;
->
-> Script: OP\_DUP OP\_HASH160 &lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG
->
-> Stack: &lt;signature&gt; &lt;pubKey&gt; &lt;pubKey&gt;
->
-> Script: OP\_HASH160 &lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG
->
-> Stack: &lt;signature&gt; &lt;pubKey&gt; &lt;pubKeyHash&gt;
->
-> Script: &lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG
->
-> Stack: &lt;signature&gt; &lt;pubKey&gt; &lt;pubKeyHash&gt; &lt;pubKeyHash&gt;
->
-> Script: OP\_EQUALVERIFY OP\_CHECKSIG
->
-> Stack: &lt;signature&gt; &lt;pubKey&gt;
->
-> Script: OP\_CHECKSIG
->
-> Stack: true or false. Script: empty.
+> 1. Stack: **empty**
+>     Script: **&lt;signature&gt; &lt;pubKey&gt; OP\_DUP OP\_HASH160 &lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG**
+> 2. Stack: **&lt;signature&gt;**
+>     Script:** &lt;pubKey&gt; OP\_DUP OP\_HASH160 &lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG**
+> 3. Stack: **&lt;signature&gt; &lt;pubKey&gt;**
+>     Script: **OP\_DUP OP\_HASH160 &lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG**
+> 4. Stack: **&lt;signature&gt; &lt;pubKey&gt; &lt;pubKey&gt;**
+>     Script: **OP\_HASH160 &lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG**
+> 5. Stack: **&lt;signature&gt; &lt;pubKey&gt; &lt;pubKeyHash&gt;**
+>     Script: **&lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG**
+> 6. Stack: **&lt;signature&gt; &lt;pubKey&gt; &lt;pubKeyHash&gt; &lt;pubKeyHash&gt;**
+>     Script: **OP\_EQUALVERIFY OP\_CHECKSIG**
+> 7. Stack: **&lt;signature&gt; &lt;pubKey&gt;**
+>     Script: **OP\_CHECKSIG**
+> 8. Stack: **true or false. Script: empty.**
 
 
 
