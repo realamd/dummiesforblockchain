@@ -103,14 +103,69 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 
 ```go
 func NewBlock(data string, prevBlockHash []byte) *Block {
-	block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}, 0}
-	pow := NewProofOfWork(block)
-	nonce, hash := pow.Run()
+    block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}, 0}
+    pow := NewProofOfWork(block)
+    nonce, hash := pow.Run()
 
-	block.Hash = hash[:]
-	block.Nonce = nonce
+    block.Hash = hash[:]
+    block.Nonce = nonce
 
-	return block
+    return block
+}
+```
+
+我们将**nonce**将入**Block**结构，这是因为**nonce**需要用于后续验证操作。**Block**结构结构如下：
+
+```go
+type Block struct {
+	Timestamp     int64
+	Data          []byte
+	PrevBlockHash []byte
+	Hash          []byte
+	Nonce         int
+}
+```
+
+大功告成！让我们运行看看效果吧：
+
+```
+Mining the block containing "Genesis Block"
+00000041662c5fc2883535dc19ba8a33ac993b535da9899e593ff98e1eda56a1
+
+Mining the block containing "Send 1 BTC to Ivan"
+00000077a856e697c69833d9effb6bdad54c730a98d674f73c0b30020cc82804
+
+Mining the block containing "Send 2 more BTC to Ivan"
+000000b33185e927c9a989cc7d5aaaed739c56dad9fd9361dea558b9bfaf5fbe
+
+Prev. hash:
+Data: Genesis Block
+Hash: 00000041662c5fc2883535dc19ba8a33ac993b535da9899e593ff98e1eda56a1
+
+Prev. hash: 00000041662c5fc2883535dc19ba8a33ac993b535da9899e593ff98e1eda56a1
+Data: Send 1 BTC to Ivan
+Hash: 00000077a856e697c69833d9effb6bdad54c730a98d674f73c0b30020cc82804
+
+Prev. hash: 00000077a856e697c69833d9effb6bdad54c730a98d674f73c0b30020cc82804
+Data: Send 2 more BTC to Ivan
+Hash: 000000b33185e927c9a989cc7d5aaaed739c56dad9fd9361dea558b9bfaf5fbe
+```
+
+可以看到，所有block的hash值前3个字节均为0，同时生成block时需要花费一定时间。
+
+目前还有一件事需要做，就是对工作量进行验证：
+
+```go
+func (pow *ProofOfWork) Validate() bool {
+	var hashInt big.Int
+
+	data := pow.prepareData(pow.block.Nonce)
+	hash := sha256.Sum256(data)
+	hashInt.SetBytes(hash[:])
+
+	isValid := hashInt.Cmp(pow.target) == -1
+
+	return isValid
 }
 ```
 
