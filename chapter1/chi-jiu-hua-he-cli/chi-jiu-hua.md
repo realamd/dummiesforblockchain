@@ -60,13 +60,13 @@ err = db.Update(func(tx *bolt.Tx) error {
 b := tx.Bucket([]byte(blocksBucket))
 
 if b == nil {
-	genesis := NewGenesisBlock()
-	b, err := tx.CreateBucket([]byte(blocksBucket))
-	err = b.Put(genesis.Hash, genesis.Serialize())
-	err = b.Put([]byte("l"), genesis.Hash)
-	tip = genesis.Hash
+    genesis := NewGenesisBlock()
+    b, err := tx.CreateBucket([]byte(blocksBucket))
+    err = b.Put(genesis.Hash, genesis.Serialize())
+    err = b.Put([]byte("l"), genesis.Hash)
+    tip = genesis.Hash
 } else {
-	tip = b.Get([]byte("l"))
+    tip = b.Get([]byte("l"))
 }
 ```
 
@@ -76,6 +76,15 @@ if b == nil {
 
 ```go
 bc := Blockchain{tip, db}
+```
+
+现在不再存储任何block，而仅仅存储blockchain的tip，同时为了避免程序运行过程中数据库反复被打开，因此blockchain中会存储已打开的数据库链接，**blockchain**的结构修改如下：
+
+```go
+type Blockchain struct {
+	tip []byte
+	db  *bolt.DB
+}
 ```
 
 
