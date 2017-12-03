@@ -117,11 +117,21 @@ func (bc *Blockchain) AddBlock(data string) {
 
 ```go
 err := bc.db.View(func(tx *bolt.Tx) error {
-	b := tx.Bucket([]byte(blocksBucket))
-	lastHash = b.Get([]byte("l"))
+    b := tx.Bucket([]byte(blocksBucket))
+    lastHash = b.Get([]byte("l"))
 
-	return nil
+    return nil
 })
+```
+
+首先使用只读事务获取当前数据库中最新block的hash值。
+
+```go
+newBlock := NewBlock(data, lastHash)
+b := tx.Bucket([]byte(blocksBucket))
+err := b.Put(newBlock.Hash, newBlock.Serialize())
+err = b.Put([]byte("l"), newBlock.Hash)
+bc.tip = newBlock.Hash
 ```
 
 
