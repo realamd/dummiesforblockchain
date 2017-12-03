@@ -8,18 +8,22 @@ Blockchain以genesis block开头，该block生成blockchain中第一个TXO。由
 
 ```go
 func NewCoinbaseTX(to, data string) *Transaction {
-	if data == "" {
-		data = fmt.Sprintf("Reward to '%s'", to)
-	}
+    if data == "" {
+        data = fmt.Sprintf("Reward to '%s'", to)
+    }
 
-	txin := TXInput{[]byte{}, -1, data}
-	txout := TXOutput{subsidy, to}
-	tx := Transaction{nil, []TXInput{txin}, []TXOutput{txout}}
-	tx.SetID()
+    txin := TXInput{[]byte{}, -1, data}
+    txout := TXOutput{subsidy, to}
+    tx := Transaction{nil, []TXInput{txin}, []TXOutput{txout}}
+    tx.SetID()
 
-	return &tx
+    return &tx
 }
 ```
 
+coinbase仅有一个TXI，该TXI的**Txid**为空，**Vout**设置为-1，同时**ScriptSig**中存储的不是脚本，而仅仅是一个普通字符串。
 
+> _比特币中，第一个coinbase交易包含如下信息“The Times 03/Jan/2009 Chancellor on brink of second bailout for banks”_
+
+**Subsidy**是挖矿的奖励值，比特币中，该奖励值是基于总block数量计算得到的。挖出genesis奖励50BTC，每挖出**210000**个block，奖励值减半。我们的实现中，该奖励值是一个常量。
 
