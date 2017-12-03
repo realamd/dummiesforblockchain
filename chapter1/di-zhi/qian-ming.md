@@ -178,5 +178,17 @@ for inID, vin := range tx.Vin {
     y.SetBytes(vin.PubKey[(keyLen / 2):])
 ```
 
+这里，。之前，将签名生成的两个字节序列组合生成TXI的**Signature**；将椭圆曲线的X,Y坐标点集合（其实也是两个字节序列）组合生成TXI的**PubKey。**现在，我们需要将TXI的**Signature**和**PubKey**中的数据进行“拆包”，用于**crypto/ecdsa**库进行验证使用。
+
+```go
+	rawPubKey := ecdsa.PublicKey{curve, &x, &y}
+	if ecdsa.Verify(&rawPubKey, txCopy.ID, &r, &s) == false {
+		return false
+	}
+}
+
+return true
+```
+
 
 
