@@ -34,6 +34,7 @@
     * [先有蛋后有鸡](chapter1/jiao-yi/xian-you-dan-hou-you-ji.md)
     * [交易\(Transaction\)](chapter1/jiao-yi/jiao-yi-guo-cheng.md)
     * [工作量证明](chapter1/jiao-yi/gong-zuo-liang-zheng-ming.md)
+    * [未消费TXO\(UTXO\)](chapter1/jiao-yi/wei-xiao-fei-txo-utxo.md)
   * 地址
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
