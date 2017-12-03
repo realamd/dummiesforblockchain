@@ -8,5 +8,62 @@
 > 2. 矿工节点：将交易存储在mempool中，当交易数量满足要求时，开始挖新的block
 > 3. 钱包节点：用于在钱包之间发送钱币。与SPV节点不同，该节点存储完整的blockchain
 
+# **场景**
+
+本文的目标是实现以下场景：
+
+> 1. 中心节点创建blockchain
+> 2. 其他钱包节点连接到中心节点，并下载blockchain
+> 3. 一个或多个矿工节点连接到中心节点，并下载blockchain
+> 4. 钱包节点创建一个交易
+> 5. 矿工节点收到此交易并保存在mempool中
+> 6. 当mempool有足够交易时，矿工开始挖矿
+> 7. 当新的block生成时，其将被发送到中心节点
+> 8. 钱包节点与中心节点进行同步
+> 9. 钱包节点的拥有者将检查支付是否成功
+
+整个过程与比特币很像，虽然没有实现一个真实的P2P网络，但是该场景仍然是比特币中最重要、最主要的用例。
+
+# **version消息**
+
+节点间借助于消息进行通信。当新节点启动后，将从一个DNS seed获取节点列表，并向这些节点发送**version**消息。version结构如下：
+
+```go
+type version struct {
+    Version    int
+    BestHeight int
+    AddrFrom   string
+}
+```
+
+由于仅仅有一个blockchain版本，因此**Version**字段不存储任何重要信息。**BestHeight**存放该节点的blockchain的长度。**AddFrom**存放消息发送者的地址。
+
+当一个节点收到**version**消息后，需要做些什么呢？它将发送自身的**version**消息给对方。这是一种握手协议：不握手不能做其他任何事情。**version**用于发现一个更长的blockchain。当一个节点收到**version**消息后，将会检查发送节点的**version.BestHeight**值是否更大（即blockchain更长），如果发送节点的blockchain更长的话，接收节点将会发送请求获取缺失的block。
+
+创建一个Server用于接收消息：
+
+```go
+var nodeAddress string
+var knownNodes = []string{"localhost:3000"}
+
+func StartServer(nodeID, minerAddress string) {
+    nodeAddress = fmt.Sprintf("localhost:%s", nodeID)
+    miningAddress = minerAddress
+    ln, err := net.Listen(protocol, nodeAddress)
+    defer ln.Close()
+
+    bc := NewBlockchain(nodeID)
+
+    if nodeAddress != knownNodes[0] {
+        sendVersion(knownNodes[0], bc)
+    }
+
+    for {
+        conn, err := ln.Accept()
+        go handleConnection(conn, bc)
+    }
+}
+```
+
 
 
