@@ -57,21 +57,32 @@ txCopy := tx.TrimmedCopy()
 
 ```go
 func (tx *Transaction) TrimmedCopy() Transaction {
-	var inputs []TXInput
-	var outputs []TXOutput
+    var inputs []TXInput
+    var outputs []TXOutput
 
-	for _, vin := range tx.Vin {
-		inputs = append(inputs, TXInput{vin.Txid, vin.Vout, nil, nil})
-	}
+    for _, vin := range tx.Vin {
+        inputs = append(inputs, TXInput{vin.Txid, vin.Vout, nil, nil})
+    }
 
-	for _, vout := range tx.Vout {
-		outputs = append(outputs, TXOutput{vout.Value, vout.PubKeyHash})
-	}
+    for _, vout := range tx.Vout {
+        outputs = append(outputs, TXOutput{vout.Value, vout.PubKeyHash})
+    }
 
-	txCopy := Transaction{tx.ID, inputs, outputs}
+    txCopy := Transaction{tx.ID, inputs, outputs}
 
-	return txCopy
+    return txCopy
 }
+```
+
+TrimmedCopy交易包括复制原始交易中所有的TXI和TXO，区别在于TrimmedCopy中TXI的**Signature**和**PubKey**被设置为nil。
+
+接下来对TrimmedCopy交易中所有的TXI进行遍历：
+
+```go
+for inID, vin := range txCopy.Vin {
+	prevTx := prevTXs[hex.EncodeToString(vin.Txid)]
+	txCopy.Vin[inID].Signature = nil
+	txCopy.Vin[inID].PubKey = prevTx.Vout[vin.Vout].PubKeyHash
 ```
 
 
