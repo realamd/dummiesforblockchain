@@ -90,27 +90,41 @@ if printChainCmd.Parsed() {
 
 ```go
 func (cli *CLI) addBlock(data string) {
-	cli.bc.AddBlock(data)
-	fmt.Println("Success!")
+    cli.bc.AddBlock(data)
+    fmt.Println("Success!")
 }
 
 func (cli *CLI) printChain() {
-	bci := cli.bc.Iterator()
+    bci := cli.bc.Iterator()
 
-	for {
-		block := bci.Next()
+    for {
+        block := bci.Next()
 
-		fmt.Printf("Prev. hash: %x\n", block.PrevBlockHash)
-		fmt.Printf("Data: %s\n", block.Data)
-		fmt.Printf("Hash: %x\n", block.Hash)
-		pow := NewProofOfWork(block)
-		fmt.Printf("PoW: %s\n", strconv.FormatBool(pow.Validate()))
-		fmt.Println()
+        fmt.Printf("Prev. hash: %x\n", block.PrevBlockHash)
+        fmt.Printf("Data: %s\n", block.Data)
+        fmt.Printf("Hash: %x\n", block.Hash)
+        pow := NewProofOfWork(block)
+        fmt.Printf("PoW: %s\n", strconv.FormatBool(pow.Validate()))
+        fmt.Println()
 
-		if len(block.PrevBlockHash) == 0 {
-			break
-		}
-	}
+        if len(block.PrevBlockHash) == 0 {
+            break
+        }
+    }
+}
+```
+
+整个过程与之前非常相似，唯一区别在于现在使用**BlockchainIterator**遍历blockchain。
+
+最后，修改一下main函数：
+
+```go
+func main() {
+	bc := NewBlockchain()
+	defer bc.db.Close()
+
+	cli := CLI{bc}
+	cli.Run()
 }
 ```
 
