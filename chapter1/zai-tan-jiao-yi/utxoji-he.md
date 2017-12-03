@@ -146,5 +146,49 @@ func (u UTXOSet) FindUTXO(pubKeyHash []byte) []TXOutput {
 }
 ```
 
+之前**Blockchain**的那些方法已经不需要了，现在开始使用这些新方法。
+
+UTXO集合的出现意味着交易信息分为两部分存储：实际交易数据存储在blockchain中，UTXO数据存储在UTXO集合中。为了保持数据一致性的同时避免每次挖到一个新的block都重建UTXO集合（不希望频繁扫描blockchain），需要一个数据同步机制：
+
+```go
+func (u UTXOSet) Update(block *Block) {
+    db := u.Blockchain.db
+
+    err := db.Update(func(tx *bolt.Tx) error {
+        b := tx.Bucket([]byte(utxoBucket))
+
+        for _, tx := range block.Transactions {
+            if tx.IsCoinbase() == false {
+                for _, vin := range tx.Vin {
+                    updatedOuts := TXOutputs{}
+                    outsBytes := b.Get(vin.Txid)
+                    outs := DeserializeOutputs(outsBytes)
+
+                    for outIdx, out := range outs.Outputs {
+                        if outIdx != vin.Vout {
+                            updatedOuts.Outputs = append(updatedOuts.Outputs, out)
+                        }
+                    }
+
+                    if len(updatedOuts.Outputs) == 0 {
+                        err := b.Delete(vin.Txid)
+                    } else {
+                        err := b.Put(vin.Txid, updatedOuts.Serialize())
+                    }
+
+                }
+            }
+
+            newOutputs := TXOutputs{}
+            for _, out := range tx.Vout {
+                newOutputs.Outputs = append(newOutputs.Outputs, out)
+            }
+
+            err := b.Put(tx.ID, newOutputs.Serialize())
+        }
+    })
+}
+```
+
 
 
