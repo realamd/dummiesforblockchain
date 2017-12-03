@@ -66,6 +66,7 @@
     * [演练](chapter1/wang-luo/yan-lian.md)
     * [总结](chapter1/wang-luo/zong-jie.md)
 * [第3章 基于以太坊建立私有链](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian.md)
+  * [软/硬件环境](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/8f6f-ying-jian-huan-jing.md)
 * [第4章 DApps](di-4-zhang-dapps.md)
 * [第5章 智能合约](di-5-zhang-zhi-neng-he-yue.md)
 * [附录](fu-lu.md)
