@@ -56,5 +56,19 @@ printChainCmd := flag.NewFlagSet("printchain", flag.ExitOnError)
 addBlockData := addBlockCmd.String("data", "", "Block data")
 ```
 
+首先，创建两个子命令：**addblock**、**printchain，addblock**具有一个命令参数**-data，printchain**没有任何命令参数。
+
+```go
+switch os.Args[1] {
+case "addblock":
+	err := addBlockCmd.Parse(os.Args[2:])
+case "printchain":
+	err := printChainCmd.Parse(os.Args[2:])
+default:
+	cli.printUsage()
+	os.Exit(1)
+}
+```
+
 
 
