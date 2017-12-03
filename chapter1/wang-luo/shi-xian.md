@@ -394,3 +394,19 @@ if len(mempool) >= 2 && len(miningAddress) > 0 {
 
 仅仅矿工节点设置 **miningAddress**，若当前矿工节点的mempool包含两个以上的交易时，开始挖矿：
 
+```go
+for id := range mempool {
+    tx := mempool[id]
+    if bc.VerifyTransaction(&tx) {
+        txs = append(txs, &tx)
+    }
+}
+
+if len(txs) == 0 {
+    fmt.Println("All transactions are invalid! Waiting for new ones...")
+    return
+}
+```
+
+
+
