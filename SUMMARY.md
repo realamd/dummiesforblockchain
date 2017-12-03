@@ -15,10 +15,10 @@
     * [Hashcash算法](chapter1/gong-zuo-liang-zheng-ming/hashcashsuan-fa.md)
     * [实现](chapter1/gong-zuo-liang-zheng-ming/shi-xian.md)
     * [总结](chapter1/gong-zuo-liang-zheng-ming/zong-jie.md)
-  * 持久化和CLI
+  * [持久化和CLI](chapter1/chi-jiu-hua-he-cli.md)
   * 地址
   * 交易
-  * 再谈交易
+  * [再论交易](chapter1/zai-tan-jiao-yi.md)
   * 网络
 * 基于以太坊建立私有链
 
