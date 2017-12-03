@@ -1,3 +1,4 @@
-# My Awesome Book
+# Dummies for blockchain
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+本书用于讲解如何通过Go实现区块链
+
