@@ -10,5 +10,32 @@
 >
 > 比特币的加锁、解锁逻辑存放在脚本中，分别存储在TXI的ScriptSig和TXO的ScriptPubKey字段。由于比特币支持多种类型的脚本，因此ScriptPubKey的整体也需要被签名
 
+我们并不需要对TXI中的公钥进行签名。因此并非对“原始”交易进行签名，而是对TrimmedCopy交易进行签名。什么是TrimmedCopy交易？还是让我们来看代码理解下，从**Sign**方法开始：
+
+> _TrimmedCopy交易的处理过程参见_[_此文_](https://en.bitcoin.it/wiki/File:Bitcoin_OpCheckSig_InDetai)_，可能有些过程，但是还是可以看出些端倪的。_
+
+```go
+func (tx *Transaction) Sign(privKey ecdsa.PrivateKey, prevTXs map[string]Transaction) {
+	if tx.IsCoinbase() {
+		return
+	}
+
+	txCopy := tx.TrimmedCopy()
+
+	for inID, vin := range txCopy.Vin {
+		prevTx := prevTXs[hex.EncodeToString(vin.Txid)]
+		txCopy.Vin[inID].Signature = nil
+		txCopy.Vin[inID].PubKey = prevTx.Vout[vin.Vout].PubKeyHash
+		txCopy.ID = txCopy.Hash()
+		txCopy.Vin[inID].PubKey = nil
+
+		r, s, err := ecdsa.Sign(rand.Reader, &privKey, txCopy.ID)
+		signature := append(r.Bytes(), s.Bytes()...)
+
+		tx.Vin[inID].Signature = signature
+	}
+}
+```
+
 
 
