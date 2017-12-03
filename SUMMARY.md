@@ -50,6 +50,7 @@
   * [再论交易](chapter1/zai-tan-jiao-yi.md)
     * [引言](chapter1/zai-tan-jiao-yi/yin-yan.md)
     * [奖励](chapter1/zai-tan-jiao-yi/jiang-li.md)
+    * [UTXO集合](chapter1/zai-tan-jiao-yi/utxoji-he.md)
   * 网络
 * 基于以太坊建立私有链
 
