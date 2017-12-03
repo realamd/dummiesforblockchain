@@ -19,3 +19,9 @@
 
 此脚本数据分为两部分：
 
+> 1. 第一部分，&lt;signature&gt; &lt;pubKey&gt;，被存放在TXI的ScriptSig 中
+> 2. 第二部分，OP\_DUP OP\_HASH160 &lt;pubKeyHash&gt; OP\_EQUALVERIFY OP\_CHECKSIG，被存放在TXO的ScriptPubKey中
+
+  
+TXO定义解锁逻辑，TXI提供数据解锁TXO，脚本执行如下：
+
