@@ -65,3 +65,16 @@ Mist启动后查找本地默认ipc是否存在（Mac默认文件为$HOME/Library
 
 # 创建账户
 
+账户是一对公钥/私钥对，用于进行挖矿、交易、存储ether等活动。之前已经通过Geth创建了一个账户，该账户为Main Account，挖矿获得的ether默认存在该账户。账户可以有多个，下面通过Mist创建另一个账户![](/assets/3.1.4.png)![](/assets/3.1.5.png)![](/assets/3.1.6.png)![](/assets/3.1.7.png)![](/assets/3.1.8.png)至此，新创建了一个账户ACCOUNT3，该账户地址为**0xD12B5885d62BB06c76A1699E560C37AC06Ee81C4。**
+
+账户文件保存在--datadir目录中的keystore目录中：
+
+```
+Chris:keystore zhangli$ ls $HOME/share/q-btc/private_chain/data/keystore
+UTC--2017-11-25T14-50-17.692945588Z--205c6e56f2b809d686b4afc42b241004c985c900
+UTC--2017-11-26T13-28-26.329917826Z--66e840ec7caf3538c8aaa34d74d882a33fc20ce6
+UTC--2017-11-26T14-17-13.507560584Z--d12b5885d62bb06c76a1699e560c37ac06ee81c4
+```
+
+
+
