@@ -138,5 +138,14 @@ func (cli *CLI) getBalance(address string) {
 }
 ```
 
+账户余额就是属于该账户的所有UTXO的总和。
+
+Ivan挖到genesis block后，其账户余额为10：
+
+```
+$ blockchain_go getbalance -address Ivan
+Balance of 'Ivan': 10
+```
+
 
 
