@@ -85,5 +85,9 @@ func (u UTXOSet) Reindex() {
 }
 ```
 
+首先，若UTXO集合存在，将其删除；然后获取所有UTXO；最后将其保存到bucket中。
 
+**Blockchain.FindUTXO**几乎与**Blockchain.FindUnspentTransactions**完全一致，只不过现在该方法返回**TransactionID → TransactionOutputs**对。
+
+现在，发送货币过程可以用到UTXO集合：
 
