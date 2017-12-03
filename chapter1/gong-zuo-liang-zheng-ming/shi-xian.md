@@ -118,11 +118,11 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 
 ```go
 type Block struct {
-	Timestamp     int64
-	Data          []byte
-	PrevBlockHash []byte
-	Hash          []byte
-	Nonce         int
+    Timestamp     int64
+    Data          []byte
+    PrevBlockHash []byte
+    Hash          []byte
+    Nonce         int
 }
 ```
 
@@ -157,16 +157,54 @@ Hash: 000000b33185e927c9a989cc7d5aaaed739c56dad9fd9361dea558b9bfaf5fbe
 
 ```go
 func (pow *ProofOfWork) Validate() bool {
-	var hashInt big.Int
+    var hashInt big.Int
 
-	data := pow.prepareData(pow.block.Nonce)
-	hash := sha256.Sum256(data)
-	hashInt.SetBytes(hash[:])
+    data := pow.prepareData(pow.block.Nonce)
+    hash := sha256.Sum256(data)
+    hashInt.SetBytes(hash[:])
 
-	isValid := hashInt.Cmp(pow.target) == -1
+    isValid := hashInt.Cmp(pow.target) == -1
 
-	return isValid
+    return isValid
 }
+```
+
+可以看到，验证过程需要nonce数据。
+
+再运行一次，一切OK：
+
+```
+func main() {
+	...
+
+	for _, block := range bc.blocks {
+		...
+		pow := NewProofOfWork(block)
+		fmt.Printf("PoW: %s\n", strconv.FormatBool(pow.Validate()))
+		fmt.Println()
+	}
+}
+```
+
+输出：
+
+```
+...
+
+Prev. hash:
+Data: Genesis Block
+Hash: 00000093253acb814afb942e652a84a8f245069a67b5eaa709df8ac612075038
+PoW: true
+
+Prev. hash: 00000093253acb814afb942e652a84a8f245069a67b5eaa709df8ac612075038
+Data: Send 1 BTC to Ivan
+Hash: 0000003eeb3743ee42020e4a15262fd110a72823d804ce8e49643b5fd9d1062b
+PoW: true
+
+Prev. hash: 0000003eeb3743ee42020e4a15262fd110a72823d804ce8e49643b5fd9d1062b
+Data: Send 2 more BTC to Ivan
+Hash: 000000e42afddf57a3daa11b43b2e0923f23e894f96d1f24bfd9b8d2d494c57a
+PoW: true
 ```
 
 
