@@ -1,4 +1,4 @@
-# Dummies for blockchain
+# Dummies for Blockchain
 
 本书分为5章：
 
