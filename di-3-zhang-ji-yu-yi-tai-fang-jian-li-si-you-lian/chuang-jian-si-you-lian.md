@@ -290,6 +290,17 @@ INFO [xx-xx|00:07:08] Successfully sealed new block            number=4 hash=c3e
 
 通过设置mine.start\(n\)的参数n来控制同时挖矿的线程数，默认使用创建的第一个账户进行挖矿。启动挖矿之初，先要创建DAG文件，当创建完成后（percentage=99）会打印DAG验证信息（上面红色字体），然后就会开始挖矿。此时会发现挖矿速度非常快，远远高于以太坊公有链的速度，这是因为有意在Genesis文件中将挖矿难度变得非常低：_**"nonce": "0x0000000000000042"**_，这样便于在测试网络中快速挖到以太币进行测试。
 
+> 什么是DAG？
+>
+> Ethash是一个工作量证明\(PoW\)的系统，为了实现PoW需要准备大小约为1GB的数据集，称为DAG。由于DAG数据集的生成需要花费一定的时间，因此第一次生成后该数据集将被缓存起来便于其他客户端共享该数据集。
+>
+> DAG数文件存放在：
+>
+> * Mac/Linux：$HOME/.ethash/full-R&lt;REVISION&gt;-&lt;SEEDHASH&gt;
+> * Windows：$HOME/AppData/Local/Ethash/full-R&lt;REVISION&gt;-&lt;SEEDHASH&gt;
+>
+> DAG文件以8字节的魔数0xfee1deadbaddcafe开头（大端存储，fe ca dd ba ad de e1 fe）。
+
 可以使用如下命令停止挖矿，成功会返打印true：
 
 ```
