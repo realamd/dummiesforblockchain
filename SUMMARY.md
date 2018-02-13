@@ -5,6 +5,7 @@
   * [比特币](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi.md)
   * [区块链](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/qu-kuai-lian.md)
   * [智能合约](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/zhi-neng-he-yue.md)
+  * 共识算法
 * [第2章 基于Go实现区块链](chapter1.md)
   * [基本原型](chapter1/ji-ben-yuan-xing.md)
     * [引言](chapter1/ji-ben-yuan-xing/yin-yan.md)
@@ -69,13 +70,20 @@
   * [以太坊概述](di-4-zhang-dapps/yi-tai-fang-gai-shu.md)
   * [智能合约语言Solidity](di-4-zhang-dapps/zhi-neng-he-yue-yu-yan-solidity.md)
   * [构建自己的DApp](di-4-zhang-dapps/gou-jian-zi-ji-de-dapp.md)
-* [第3章 基于以太坊建立私有链\(合入第三章\)](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian.md)
+* [第3章 基于以太坊建立私有链\(合入第3章\)](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian.md)
+  * [软/硬件环境](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/8f6f-ying-jian-huan-jing.md)
   * [安装Geth](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/an-zhuang-geth.md)
   * [创建私有链](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/chuang-jian-si-you-lian.md)
   * [钱包应用：Mist](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/qian-bao-ying-yong-ff1a-mist.md)
   * [多节点互联](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/duo-jie-dian-hu-lian.md)
-* [软/硬件环境](di-3-zhang-ji-yu-yi-tai-fang-jian-li-si-you-lian/8f6f-ying-jian-huan-jing.md)
 * [第4章 "大教堂"Hyperledger](di-5-zhang-zhi-neng-he-yue.md)
+  * [Hyperledger概述](di-5-zhang-zhi-neng-he-yue/hyperledgergai-shu.md)
+  * Hyperledger架构
+  * [构建联盟链应用](di-5-zhang-zhi-neng-he-yue/gou-jian-lian-meng-lian-ying-yong.md)
+* [第5章 ZBChain平台](di-5-zhang-zbchain-ping-tai.md)
+  * ZBChain白皮书
+  * ZBChain架构
+  * ZBChain应用
 * [附录](fu-lu.md)
   * [公钥与私钥](fu-lu/gong-yao-yu-si-yao.md)
 
