@@ -74,7 +74,7 @@
 * [第4章 "集市"以太坊](di-4-zhang-dapps.md)
   * [以太坊概述](di-4-zhang-dapps/yi-tai-fang-gai-shu.md)
   * [智能合约语言Solidity](di-4-zhang-dapps/zhi-neng-he-yue-yu-yan-solidity.md)
-  * 构建自己的DApp
+  * [构建自己的DApp](di-4-zhang-dapps/gou-jian-zi-ji-de-dapp.md)
 * [第5章 "大教堂"Hyperledger](di-5-zhang-zhi-neng-he-yue.md)
 * [附录](fu-lu.md)
   * [公钥与私钥](fu-lu/gong-yao-yu-si-yao.md)
