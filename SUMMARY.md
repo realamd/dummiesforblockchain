@@ -2,10 +2,12 @@
 
 * [前言](README.md)
 * [第1章 去中心化世界](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue.md)
-  * [比特币](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi.md)
+  * [云共识](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi/yun-gong-shi.md)
+    * [引言](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi/yun-gong-shi/yin-yan.md)
   * [区块链](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/qu-kuai-lian.md)
   * [智能合约](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/zhi-neng-he-yue.md)
   * 共识算法
+  * [比特币](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi.md)
 * [第2章 基于Go实现区块链](chapter1.md)
   * [基本原型](chapter1/ji-ben-yuan-xing.md)
     * [引言](chapter1/ji-ben-yuan-xing/yin-yan.md)
