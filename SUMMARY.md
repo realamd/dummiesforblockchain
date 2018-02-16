@@ -87,7 +87,7 @@
   * [构建自己的DApp](di-4-zhang-dapps/gou-jian-zi-ji-de-dapp.md)
 * [第4章 "大教堂"Hyperledger](di-5-zhang-zhi-neng-he-yue.md)
   * [Hyperledger概述](di-5-zhang-zhi-neng-he-yue/hyperledgergai-shu.md)
-  * Hyperledger架构
+  * [Hyperledger架构](di-5-zhang-zhi-neng-he-yue/hyperledgerjia-gou.md)
   * [构建联盟链应用](di-5-zhang-zhi-neng-he-yue/gou-jian-lian-meng-lian-ying-yong.md)
 * [第5章 ZBChain平台](di-5-zhang-zbchain-ping-tai.md)
   * ZBChain白皮书
