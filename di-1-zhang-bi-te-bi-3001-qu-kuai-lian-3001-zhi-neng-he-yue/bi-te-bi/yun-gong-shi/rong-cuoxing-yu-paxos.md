@@ -61,7 +61,7 @@ Paxos算法是解决分布式系统共识问题的重要算法，同样也衍生
 
 > 简化Paxos算法：
 >
-> T，C为Client端的ticket和command参数；
+> T，C为Client端的ticket和command参数；Ticket由每个Client维护，每次增加，由Server端验证、保存。
 >
 > Server端最大ticket T.max，存储的命令携带ticket T.store，命令 C.store。
 >
@@ -70,30 +70,26 @@ Paxos算法是解决分布式系统共识问题的重要算法，同样也衍生
 > | Client | Server |
 > | :--- | :--- |
 > | T=0，C=c0 | T.max=t，T.store=t，C.store=c1 |
-
+>
 > 请求 ，
 >
 > | Client | Server |
 > | :--- | :--- |
-> | 向所有Server发送请求票据，选择最大的t，并发送给所有Server。 |  |
-> |  | if \(T&gt;=T.max\) {                                                                                                   T.max = T;                                                                                   return \(T.store, C.store\);                                                                  }  |
-> | if\(获得半数以上Server回复\){                                                                     选择最大的T.store的\(T.store，C.store\);                                           if\(T.store&gt;0\){                                                                                    C=C.store;                                                                                 }                                                                                                  向回复的Server发送消息propose\(T,C\);                   } |  |
-> |  | 获得propose请求。                                                                  if\(t=T.max\){                                                                                                    C.store=c;                                                                                  T.store=t;                                                                                    return success;                                                                       } |
-
+> | 向所有Server发送请求票据，T=T+1，并发送给所有Server。 |  |
+> |  | if \(T&gt;T.max\) {                                                                                                   T.max = T;                                                                                  return prepare\(T.store, C.store\);                                           } |
+> | if\(获得半数以上Server回复prepare\){                                                                     选择最大的T.store的\(T.store，C.store\);                                           if\(T.store&gt;0\){                                                                                    C=C.store;                                                                                 }                                                                                 向回复的Server发送消息propose\(T,C\);                   } |  |
+> |  | 获得propose请求。                                                                  if\(T=T.max\){                                                                                                    C.store=C;                                                                                  T.store=T;                                                                                   return success;                                                                       } |
+>
 > 执行，
 >
 > | Client | Server |
 > | :--- | :--- |
 > | if\(获得半数以上Server回复success\){                                                                 向所有Server发送execute\(C\);                                                 } |  |
-> |  | 获得execute请求。                                                                   if\(C=C.store\){                                                                                                    执行命令C;                                                                                T.store = 0;                                                                               } |
+> |  | 获得execute请求。                                                                   if\(C=C.store\){                                                                                                    执行命令C;                                                                                T.store = 0;                                                                                return  result\(T.store, C.store\);                                               } |
 
+以上是Paxos算法的骨干逻辑，其中T.store作为是否已有准备好的命令存储的标志，若T.store不为零，则需要当前客户端提交执行已存储的命令C.store。这样如果一个Client执行到一半，另一个Client介入时就会继续执行上一个存储的Client命令，根据最终返回result来判断自己的请求是否被执行。
 
-
-
-
-
-
-
+实际上，完整的Paxos算法中包含了Client、Proposer、Accepter和Learner角色，它们拥有着不同的功能。
 
 
 
