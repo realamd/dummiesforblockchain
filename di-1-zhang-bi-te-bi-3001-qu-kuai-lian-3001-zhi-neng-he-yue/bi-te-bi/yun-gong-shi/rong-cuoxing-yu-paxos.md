@@ -59,13 +59,47 @@ Paxos算法是解决分布式系统共识问题的重要算法，同样也衍生
 
 同时，为了避免Server端发生宕机，我们认为当一个Client收到超过一半以上的Server确认的最新t，就可以向所有Server发送确认执行的命令消息。
 
-> Paxos算法：
+> 简化Paxos算法：
+>
+> T，C为Client端的ticket和command参数；
+>
+> Server端最大ticket T.max，存储的命令携带ticket T.store，命令 C.store。
+>
+> 初始化，
 >
 > | Client | Server |
 > | :--- | :--- |
-> | T=0，C=c | T=t，C=0 |
-> | 向Server请求T=t |  |
-> |  |  |
+> | T=0，C=c0 | T.max=t，T.store=t，C.store=c1 |
+
+> 请求 ，
+>
+> | Client | Server |
+> | :--- | :--- |
+> | 向所有Server发送请求票据，选择最大的t，并发送给所有Server。 |  |
+> |  | if \(T&gt;=T.max\) {                                                                                                   T.max = T;                                                                                   return \(T.store, C.store\);                                                                  }  |
+> | if\(获得半数以上Server回复\){                                                                     选择最大的T.store的\(T.store，C.store\);                                           if\(T.store&gt;0\){                                                                                    C=C.store;                                                                                 }                                                                                                  向回复的Server发送消息propose\(T,C\);                   } |  |
+> |  | 获得propose请求。                                                                  if\(t=T.max\){                                                                                                    C.store=c;                                                                                  T.store=t;                                                                                    return success;                                                                       } |
+
+> 执行，
+>
+> | Client | Server |
+> | :--- | :--- |
+> | if\(获得半数以上Server回复success\){                                                                 向所有Server发送execute\(C\);                                                 } |  |
+> |  | 获得execute请求。                                                                   if\(C=C.store\){                                                                                                    执行命令C;                                                                                T.store = 0;                                                                               } |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
