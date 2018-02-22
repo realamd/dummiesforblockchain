@@ -9,13 +9,14 @@
     * [云共识与发展](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi/yun-gong-shi/gong-shi-yu-fa-zhan.md)
   * [区块链](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/qu-kuai-lian.md)
     * [引言](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/qu-kuai-lian/yin-yan.md)
+    * [结构](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/qu-kuai-lian/jie-gou.md)
   * [共识算法](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi/gong-shi-suan-fa.md)
     * [引言](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi/gong-shi-suan-fa/yin-yan.md)
     * [共识](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi/gong-shi-suan-fa/gong-shi.md)
   * [智能合约](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/zhi-neng-he-yue.md)
-    * 引言
+    * [引言](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/zhi-neng-he-yue/yin-yan.md)
   * [比特币](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi.md)
-    * 引言
+    * [引言](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi/yin-yan.md)
 * [第2章 基于Go实现区块链](chapter1.md)
   * [基本原型](chapter1/ji-ben-yuan-xing.md)
     * [引言](chapter1/ji-ben-yuan-xing/yin-yan.md)
