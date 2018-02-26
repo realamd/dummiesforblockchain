@@ -93,9 +93,9 @@
   * [Hyperledger架构](di-5-zhang-zhi-neng-he-yue/hyperledgerjia-gou.md)
   * [构建联盟链应用](di-5-zhang-zhi-neng-he-yue/gou-jian-lian-meng-lian-ying-yong.md)
 * [第5章 ZBChain平台](di-5-zhang-zbchain-ping-tai.md)
-  * ZBChain白皮书
-  * ZBChain架构
-  * ZBChain应用
+  * [ZBChain白皮书](di-5-zhang-zbchain-ping-tai/zbchainbai-pi-shu.md)
+  * [ZBChain架构](di-5-zhang-zbchain-ping-tai/zbchainjia-gou.md)
+  * [ZBChain应用](di-5-zhang-zbchain-ping-tai/zbchainying-yong.md)
 * [附录](fu-lu.md)
   * [公钥与私钥](fu-lu/gong-yao-yu-si-yao.md)
 
