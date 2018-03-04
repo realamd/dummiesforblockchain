@@ -11,6 +11,7 @@
     * [引言](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/qu-kuai-lian/yin-yan.md)
     * [什么是区块链](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/qu-kuai-lian/shi-yao-shi-qu-kuai-lian.md)
     * [结构](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/qu-kuai-lian/jie-gou.md)
+    * [分类](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/qu-kuai-lian/fen-lei.md)
   * [共识算法](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi/gong-shi-suan-fa.md)
     * [引言](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi/gong-shi-suan-fa/yin-yan.md)
     * [共识](di-1-zhang-bi-te-bi-3001-qu-kuai-lian-3001-zhi-neng-he-yue/bi-te-bi/gong-shi-suan-fa/gong-shi.md)
