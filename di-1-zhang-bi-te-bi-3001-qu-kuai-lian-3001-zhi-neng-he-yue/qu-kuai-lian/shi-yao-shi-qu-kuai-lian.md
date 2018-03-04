@@ -10,6 +10,10 @@
 
 图：区块链1.0和2.0的对比 [http://blog.csdn.net/sportshark/article/details/53364690](http://blog.csdn.net/sportshark/article/details/53364690)
 
+| 区块链 V1.0 | 区块链 V2.0 |
+| :--- | :--- |
+|  |  |
+
 * 广义概念：区块链是去中心化结构、安全传输，并由多方达成共识、参与、记录的一种存储方式。
 * 狭义概念：区块链是能够保证每个节点间一致性的链式结构存储的系统。
 
